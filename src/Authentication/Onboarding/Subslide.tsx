@@ -1,7 +1,6 @@
 import React from "react";
-import {View, Text, StyleSheet, Button, Dimensions} from 'react-native';
-import Animated from "react-native-reanimated";
-
+import {View, StyleSheet, Dimensions} from 'react-native';
+import { Button, Text } from "../../components"
 const { width } = Dimensions.get("window")
 const styles = StyleSheet.create({
     container: {
@@ -12,17 +11,13 @@ const styles = StyleSheet.create({
 
     },
     subtitle: {
-        fontFamily: "SFProText-Semibold",
-        fontSize: 24,
-        lineHeight: 30,
+
         marginBottom: 12,
         color: "#0C0D34",
         textAlign: "center"
     },
     description: {
-        fontFamily: "SFProText-Regular",
-        fontSize: 16,
-        lineHeight: 24,
+
         color: "#0C0D34",
         textAlign: "center",
         marginBottom: 40
@@ -38,9 +33,9 @@ interface SubslideProps {
 const Subslide = ({subtitle, description, last, onPress} :SubslideProps) => {
     return (
        <View style={styles.container}>
-           <Text style={styles.subtitle}>{subtitle}</Text>
-           <Text style={styles.description}>{description}</Text>
-           <Button title={ last? "Вперёд" : "Дальше"} variant={last ? "primary" : "default"} {...{ onPress }}/>
+           <Text variant="title2" style={styles.subtitle}>{subtitle}</Text>
+           <Text variant="body" style={styles.description}>{description}</Text>
+           <Button label={ last? "Вперёд" : "Дальше"} variant={last ? "primary" : "default"} {...{ onPress }}/>
        </View>
     )
 }

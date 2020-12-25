@@ -1,14 +1,14 @@
 import React, {useRef} from "react";
-import {View, StyleSheet, Dimensions} from 'react-native';
-import Animated, {divide, multiply} from "react-native-reanimated";
-import {interpolateColor, onScrollEvent, useValues} from "react-native-redash/lib/module/v1";
-import Subslide from "./Subslide"
-import Slide, {SLIDE_HEIGHT, BORDER_RADIUS} from "./Slide"
-import Dot from "./Dot"
+import {Dimensions, Image, StyleSheet, View} from 'react-native';
+import Animated, {divide, interpolate, multiply} from "react-native-reanimated";
 import {useScrollHandler} from "react-native-redash/lib/module/v1";
+import Subslide from "./Subslide"
+import Slide, {BORDER_RADIUS, SLIDE_HEIGHT} from "./Slide"
+import Dot from "./Dot"
+import Extrapolate = module;
 
 
-const { width } = Dimensions.get("window")
+const {width} = Dimensions.get("window")
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -33,6 +33,13 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "center",
         alignItems: "center",
+    },
+    underlay: {
+        ...StyleSheet.absoluteFillObject,
+        alignItems: "center",
+        justifyContent: "flex-end",
+        borderBottomRightRadius: BORDER_RADIUS,
+        overflow: "hidden"
     }
 })
 
@@ -42,38 +49,72 @@ const slides = [
         subtitle: "Путешествуйте",
         description: "Посещайте красивые места вместе с друзьями",
         color: "#BFEAF5",
-        picture: require("./../../../assets/introduceImages/1.jpg")
+        picture: {
+            src: require("./../../../assets/introduceImages/1.jpg"),
+            width: 2513,
+            height: 3583,
+        },
     },
     {
         title: 'Красота',
         subtitle: "Смотрите на карсоту",
         description: "Много красивых мест",
         color: "orange",
-        picture: require("./../../../assets/introduceImages/2.jpg")
+        picture: {
+            src: require("./../../../assets/introduceImages/2.jpg"),
+            width: 2791,
+            height: 3744,
+        },
     },
     {
         title: 'Отдых',
         subtitle: "Отдыхайте",
         description: "Отдыхайте компанией в красивых местах",
         color: "powderblue",
-        picture: require("./../../../assets/introduceImages/3.jpg")
+        picture: {
+            src: require("./../../../assets/introduceImages/3.jpg"),
+            width: 2738,
+            height: 3244,
+        },
     },
     {
         title: 'Жизнь',
         subtitle: "Живите",
         description: "Добавляйте свои координаты",
         color: "red",
-        picture: require("./../../../assets/introduceImages/4.jpg")
+        picture: {
+            src: require("./../../../assets/introduceImages/4.jpg"),
+            width: 1757,
+            height: 2551,
+        },
     }
 ]
 const Onboarding = () => {
     const scroll = useRef<Animated.ScrollView>(null)
     // TODO: ОБНОВИТЬ useValues из-за него не работает скролл между слайдами и скролл футера
-    //TODO: Проверить стили кнопки
     const {scrollHandler, x} = useScrollHandler()
     return (
-        <View style={styles.container}>
-            <View style={styles.slider}>
+        <Animated.View style={styles.container}>
+            <Animated.View style={[styles.slider]}>
+                {
+                    slides.map(({ picture}, index) => {
+                        const opacity = interpolate(x, {
+                            inputRange: [(index-1) * width, index * width, (index+1)*width],
+                            outputRange: [0, 1, 0],
+                            extrapolate: Extrapolate.CLAMP
+                        })
+                            return (
+                                <Animated.View style={styles.underlay} key={index}>
+                                <Image source={picture.src} style={{
+                                    opacity,
+                                    width: width - BORDER_RADIUS,
+                                    height: ((width - BORDER_RADIUS) * picture.height) / picture.width,
+                                }}/>
+                            </Animated.View>)
+                        }
+                    )
+                }
+
                 <Animated.ScrollView
                     ref={scroll}
                     horizontal snapToInterval={width}
@@ -82,11 +123,11 @@ const Onboarding = () => {
                     bounces={false}
                     {...scrollHandler}
                 >
-                    {slides.map(({title,picture}, index) => (
+                    {slides.map(({title, picture}, index) => (
                         <Slide key={index} right={!!(index % 2)} {...{title, picture}} />
                     ))}
                 </Animated.ScrollView>
-            </View>
+            </Animated.View>
             <View style={styles.footer}>
                 <Animated.View
                     /*TODO: Add different colors per slide below*/
@@ -99,12 +140,12 @@ const Onboarding = () => {
                             <Dot key={index} currentIndex={divide(x, width)} {...{index, x}} />))}
                     </View>
                     <Animated.View style={
-                    {
-                        flex: 1,
-                        flexDirection: "row",
-                        width: width * slides.length,
-                        transform: [{translateX: multiply(x, -1)}],
-                    }
+                        {
+                            flex: 1,
+                            flexDirection: "row",
+                            width: width * slides.length,
+                            transform: [{translateX: multiply(x, -1)}],
+                        }
                     }>
                         {slides.map(({subtitle, description}, index) => (
 
@@ -125,7 +166,7 @@ const Onboarding = () => {
 
                 </View>
             </View>
-        </View>
+        </Animated.View>
     )
 }
 
