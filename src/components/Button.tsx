@@ -1,4 +1,4 @@
-  import React from "react";
+import React, {ReactNode} from "react";
 import {RectButton} from "react-native-gesture-handler";
 import {Text, StyleSheet} from "react-native";
 import {useTheme} from "@shopify/restyle";
@@ -10,30 +10,37 @@ const styles = StyleSheet.create({
         height: 50,
         width: 245,
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
     },
 
 })
 
 interface ButtonProps {
-    variant: "default" | "primary";
+    variant: "default" | "primary" | "transparent" | "vkontakte";
     label: string;
-    onPress: () => void
+    onPress: () => void;
+    children?: ReactNode;
 }
 
-const Button = ({variant, label, onPress}: ButtonProps) => {
+
+const Button = ({variant, label, onPress, children}: ButtonProps) => {
     const theme = useTheme<Theme>();
-    const backgroundColor = variant === "primary" ? theme.colors.primary : theme.colors.grey;
-    const color = variant === "primary" ? theme.colors.white : theme.colors.text;
+    // TODO: Make switch/case if one more variant.
+    //Если вариант кнопки главный то фон главный если прозрачный прозрачный в другом случае серый
+    const backgroundColor = variant === "primary" ? theme.colors.primary : variant === "transparent" ? "transparent" : variant === "vkontakte" ? "#597da3" : theme.colors.grey;
+    const color = variant === "primary" || variant === 'vkontakte' ? theme.colors.white : theme.colors.secondary;
     return (
-        <RectButton style={[styles.container, { backgroundColor }]} {...{onPress}}>
-                <Text variant="button" style={{ color }}>
+        <RectButton style={[styles.container, {backgroundColor}]} {...{onPress}}>
+            {children ? children :
+                <Text variant="button" style={{color}}>
                     {label}
                 </Text>
+            }
+
         </RectButton>
     )
-}
+};
 
-Button.defaultProps = { variant: "default" }
+Button.defaultProps = {variant: "default"};
 
 export default Button;
