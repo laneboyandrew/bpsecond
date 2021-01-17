@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
 
-})
+});
 
 interface ButtonProps {
     variant: "default" | "primary" | "transparent" | "vkontakte";

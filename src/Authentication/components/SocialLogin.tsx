@@ -1,6 +1,6 @@
 import React from "react";
 import {Box} from "../../components";
-import {Dimensions, Image} from "react-native";
+import {Dimensions} from "react-native";
 import Button from "../../components/Button";
 
 const {height} = Dimensions.get('window');

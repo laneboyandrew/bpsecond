@@ -5,13 +5,17 @@ import {useScrollHandler} from "react-native-redash/lib/module/v1";
 import Subslide from "./Subslide"
 import Slide, {SLIDE_HEIGHT} from "./Slide"
 import Dot from "./Dot"
-import theme from "../../components/Theme";
+import {useTheme} from "../../components";
 import {Routes, StackNavigationProps} from "../../components/Navigation";
+import {makeStyles} from "../../components/Theme";
 
 
 
-const {width, height} = Dimensions.get("window")
-const styles = StyleSheet.create({
+
+
+
+const {width, height} = Dimensions.get("window");
+const useStyles = makeStyles((theme: Theme) => ({
     container: {
         flex: 1,
         backgroundColor: "white"
@@ -43,7 +47,7 @@ const styles = StyleSheet.create({
         borderBottomRightRadius: theme.borderRadii.xl,
         overflow: "hidden"
     }
-})
+}));
 
 const slides = [
     {
@@ -90,6 +94,9 @@ const slides = [
 ];
 export const assets = slides.map((slide) => slide.picture.src);
 const Onboarding = ({navigation}: StackNavigationProps<Routes, "Onboarding">) => {
+    const styles = useStyles();
+
+    const theme = useTheme();
     const scroll = useRef<Animated.ScrollView>(null)
     // TODO: ОБНОВИТЬ useValues из-за него не работает скролл между слайдами и скролл футера
     const {scrollHandler, x} = useScrollHandler()
