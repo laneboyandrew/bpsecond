@@ -1,6 +1,6 @@
 import React, {useRef} from "react";
 import {Box, Container, Text, Button} from "../components";
-import TextInput from "./Form/TextInput";
+import TextInput from "../components/Form/TextInput";
 import { useFormik} from 'formik';
 import * as Yup from 'yup';
 import Footer from "./components/Footer";
@@ -42,7 +42,7 @@ const SignUp = ({navigation}: StackNavigationProps<Routes, "SignUp">) => {
         onSubmit: (values) => console.log(values),
     });
     return (
-        <Container footer={{...footer}}>
+        <Container pattern={1} footer={{...footer}}>
 
             <Box padding="xl" justifyContent='center' flex={1}>
                 <Text variant="title1" textAlign="center" marginBottom='l'>Добро пожаловать! </Text>

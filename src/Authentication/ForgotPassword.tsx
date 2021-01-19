@@ -4,11 +4,8 @@ import Footer from "./components/Footer";
 import {Box, Button, Container, Text} from "../components";
 import {useFormik} from "formik";
 import * as Yup from "yup";
-import TextInput from "./Form/TextInput";
+import TextInput from "../components/Form/TextInput";
 
-interface ForgotPasswordProps {
-
-}
 const ForgotPasswordSchema = Yup.object().shape({
     email: Yup.string().email('Invalid email').required('Required'),
 });
@@ -25,13 +22,13 @@ const ForgotPassword = ({navigation}: StackNavigationProps<Routes, "ForgotPasswo
         validationSchema: ForgotPasswordSchema,
         initialValues: { email: ""},
         //Здесь передавать мыло на сервак
-        onSubmit: (values) => console.log(values),
+        onSubmit: () => navigation.navigate("PasswordChanged"),
     });
     const footer = (
         <Footer title='Не работает?' action='Попробовать другой способ' onPress={() => alert("Войти чере ВК?")}/>
     );
     return (
-        <Container footer={{...footer}}>
+        <Container pattern={2} footer={{...footer}}>
 
             <Box padding="xl" justifyContent='center' flex={1}>
                 <Text variant="title1" textAlign="center" marginBottom='l'>Восстановление пароля </Text>

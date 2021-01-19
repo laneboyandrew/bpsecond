@@ -1,7 +1,7 @@
 import React, {useRef} from "react";
 import {Box, Container, Text, Button} from "../components";
-import TextInput from "./Form/TextInput";
-import CheckBox from "./Form/CheckBox";
+import TextInput from "../components/Form/TextInput";
+import CheckBox from "../components/Form/CheckBox";
 import { useFormik} from 'formik';
 import * as Yup from 'yup';
 import Footer from "./components/Footer";
@@ -37,18 +37,17 @@ const Login = ({navigation}: StackNavigationProps<Routes, "Login">) => {
         onSubmit: (values) => console.log(values),
     });
     return (
-        <Container footer={{...footer}}>
+        <Container pattern={0} footer={{...footer}}>
 
             <Box padding="xl">
                 <Text variant="title1" textAlign="center" marginBottom='l'>Добро пожаловать! </Text>
                 <Text variant="body" textAlign="center" marginBottom='l'> Используйте Email с паролем чтобы войти или
                     войдите с помощью ВКонтакте </Text>
-
                         <Box>
                             <Box marginBottom='m'>
                                 <TextInput
                                             icon="mail"
-                                           placeholder="Введите Ваш Email"
+                                            placeholder="Введите Ваш Email"
                                             onChangeText={handleChange('email')}
                                             onBlur={handleBlur('email')}
                                             error={errors.email}

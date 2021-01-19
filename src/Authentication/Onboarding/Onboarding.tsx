@@ -7,7 +7,7 @@ import Slide, {SLIDE_HEIGHT} from "./Slide"
 import Dot from "./Dot"
 import {useTheme} from "../../components";
 import {Routes, StackNavigationProps} from "../../components/Navigation";
-import {makeStyles} from "../../components/Theme";
+import {makeStyles, Theme} from "../../components/Theme";
 
 
 

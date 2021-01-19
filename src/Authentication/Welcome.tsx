@@ -1,12 +1,12 @@
 import React from "react";
 import {Dimensions, Image} from "react-native";
-import {Box, Text, useTheme} from "../../components";
-import Button from "../../components/Button";
-import {Routes, StackNavigationProps} from "../../components/Navigation";
+import {Box, Text, useTheme} from "../components";
+import Button from "../components/Button";
+import {Routes, StackNavigationProps} from "../components/Navigation";
 
 const {width, height} = Dimensions.get("window");
 const picture = {
-    src: require("../../../assets/introduceImages/5.png")
+    src: require("../../assets/introduceImages/5.png")
 };
 
 export const assets = [picture.src];
@@ -31,8 +31,8 @@ const Welcome = ({navigation}: StackNavigationProps<Routes, "Welcome">) => {
                         Войдите в Ваш аккаунт или зарегистрируйтесь
                     </Text>
                     <Button variant="primary" label="Уже зарегистрированы? Войти" onPress={() => navigation.navigate('Login')}/>
-                    <Button variant="default" label="Зарегистрироваться"/>
-                    <Button variant="transparent" label="Забыли пароль?"/>
+                    <Button variant="default" label="Зарегистрироваться" onPress={() => navigation.navigate('SignUp')}/>
+                    <Button variant="vkontakte" label="Войти с помощью ВКонтакте" />
                 </Box>
             </Box>
         </Box>

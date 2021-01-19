@@ -14,24 +14,32 @@ const height = width * aspectRatio;
 interface ContainerProps {
     children: ReactNode;
     footer: ReactNode;
+    pattern: 0 | 1 | 2;
 }
 
-export const assets = [require("./../../assets/patterns/1.png")];
-const Container = ({children, footer}: ContainerProps) => {
+export const assets = [
+    require("./../../assets/patterns/1.png"),
+    require("./../../assets/patterns/1.png"),
+    require("./../../assets/patterns/1.png")
+];
+const Container = ({children, footer, pattern}: ContainerProps) => {
     const theme = useTheme();
     const insets = useSafeAreaInsets();
+    const asset = assets[pattern];
     return (
-        <KeyboardAwareScrollView scrollEnabled={false }>
-            <Box height={WHeight + (Platform.OS === 'android' ? Constants.statusBarHeight : 0)} backgroundColor="secondary">
+        <KeyboardAwareScrollView scrollEnabled={false}>
+            <Box height={WHeight + (Platform.OS === 'android' ? Constants.statusBarHeight : 0)}
+                 backgroundColor="secondary">
                 <Box backgroundColor="white">
                     <Box borderBottomLeftRadius="xl" overflow="hidden" height={height * 0.61}>
-                        <Image source={assets[0]}
+                        <Image source={asset}
                                style={{width, height, borderBottomLeftRadius: theme.borderRadii.xl}}/>
                     </Box>
                 </Box>
                 <Box flex={1} overflow="hidden">
 
-                    <Image source={assets[0]} style={{
+                    <Image source={asset}
+                           style={{
                         ...StyleSheet.absoluteFillObject,
                         width,
                         height,
