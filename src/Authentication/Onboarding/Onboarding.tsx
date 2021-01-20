@@ -6,7 +6,7 @@ import Subslide from "./Subslide"
 import Slide, {SLIDE_HEIGHT} from "./Slide"
 import Dot from "./Dot"
 import {useTheme} from "../../components";
-import {Routes, StackNavigationProps} from "../../components/Navigation";
+import {AuthenticationRoutes, StackNavigationProps} from "../../components/Navigation";
 import {makeStyles, Theme} from "../../components/Theme";
 
 
@@ -93,7 +93,7 @@ const slides = [
     }
 ];
 export const assets = slides.map((slide) => slide.picture.src);
-const Onboarding = ({navigation}: StackNavigationProps<Routes, "Onboarding">) => {
+const Onboarding = ({navigation}: StackNavigationProps<AuthenticationRoutes, "Onboarding">) => {
     const styles = useStyles();
 
     const theme = useTheme();

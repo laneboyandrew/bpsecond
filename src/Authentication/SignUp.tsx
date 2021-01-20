@@ -4,7 +4,7 @@ import TextInput from "../components/Form/TextInput";
 import { useFormik} from 'formik';
 import * as Yup from 'yup';
 import Footer from "./components/Footer";
-import {Routes, StackNavigationProps} from "../components/Navigation";
+import {AuthenticationRoutes, StackNavigationProps} from "../components/Navigation";
 
 const SignUpSchema = Yup.object().shape({
     email: Yup.string().email('Invalid email').required('Required'),
@@ -24,7 +24,7 @@ const SignUpSchema = Yup.object().shape({
 
 
 
-const SignUp = ({navigation}: StackNavigationProps<Routes, "SignUp">) => {
+const SignUp = ({navigation}: StackNavigationProps<AuthenticationRoutes, "SignUp">) => {
     const password = useRef<typeof TextInput>(null);
     const passwordConf = useRef<typeof TextInput>(null);
     const footer = (
@@ -44,7 +44,6 @@ const SignUp = ({navigation}: StackNavigationProps<Routes, "SignUp">) => {
     return (
         <Container pattern={1} footer={{...footer}}>
 
-            <Box padding="xl" justifyContent='center' flex={1}>
                 <Text variant="title1" textAlign="center" marginBottom='l'>Добро пожаловать! </Text>
                 <Text variant="body" textAlign="center" marginBottom='l'> Введите Email на который мы сможем выслать
                     письмо с подтверждением или войдите с помощью ВКонтакте </Text>
@@ -104,7 +103,7 @@ const SignUp = ({navigation}: StackNavigationProps<Routes, "SignUp">) => {
                         <Button variant='primary' onPress={handleSubmit} label='Зарегистрироваться'/>
                     </Box>
                 </Box>
-            </Box>
+
         </Container>
     )
 };

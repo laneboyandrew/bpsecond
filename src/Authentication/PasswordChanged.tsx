@@ -1,12 +1,12 @@
 import React from "react";
-import {Routes, StackNavigationProps} from "../components/Navigation";
+import {AuthenticationRoutes, StackNavigationProps} from "../components/Navigation";
 import {Box, Container, Text, Button, RoundedIconButton, RoundedIcon} from "../components";
 import {Feather as Icon} from "@expo/vector-icons";
 
 
 const SIZE = 80;
 
-const PasswordChanged = ({navigation}: StackNavigationProps<Routes, "PasswordChanged">) => {
+const PasswordChanged = ({navigation}: StackNavigationProps<AuthenticationRoutes, "PasswordChanged">) => {
     return (
         <Container pattern={0} footer={<Box marginTop='m' flexDirection='row' justifyContent='center'>
             <RoundedIconButton backgroundColor='white' color='secondary' name='x' size={60}
