@@ -13,9 +13,9 @@ const PasswordChanged = ({navigation}: StackNavigationProps<AuthenticationRoutes
                                onPress={() => navigation.pop()}/>
         </Box>
         }>
-            <Box flex={1} justifyContent='center' alignItems='center'>
+            <Box alignSelf='center'>
                 <RoundedIcon name='check' size={SIZE} color='primary' backgroundColor='primaryLight'/>
-
+            </Box>
                 <Text variant="title1" textAlign="center" marginVertical='m'>Письмо отправлено!</Text>
                 <Text variant="body" textAlign="center" marginBottom='l'> Мы отправили письмо с инструкциями по смене
                     пароля Вам на электронную почту
@@ -26,7 +26,6 @@ const PasswordChanged = ({navigation}: StackNavigationProps<AuthenticationRoutes
                         onPress={() => navigation.navigate("Login")}
                         label="Вернуться к авторизации"/>
                 </Box>
-            </Box>
         </Container>
     )
 };

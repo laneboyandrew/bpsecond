@@ -5,11 +5,10 @@ import CheckBox from "../components/Form/CheckBox";
 import {useFormik} from 'formik';
 import * as Yup from 'yup';
 import Footer from "./components/Footer";
-import {AuthenticationRoutes, HomeRoutes} from "../components/Navigation";
+import {AuthNavigationProps} from "../components/Navigation";
 import {BorderlessButton} from "react-native-gesture-handler";
-import {StackNavigationProp} from "@react-navigation/stack/lib/typescript/src/types";
-import {DrawerNavigationProp} from "@react-navigation/drawer/lib/typescript/src/types";
-import {CompositeNavigationProp} from "@react-navigation/native";
+import {HomeNavigator} from "../Home";
+
 
 const LoginSchema = Yup.object().shape({
     email: Yup.string().email('Invalid email').required('Required'),
@@ -20,12 +19,8 @@ const LoginSchema = Yup.object().shape({
         .required('Required'),
 });
 
-interface LoginProps {
-    navigation: CompositeNavigationProp<StackNavigationProp<AuthenticationRoutes, 'Login'>,
-        DrawerNavigationProp<HomeRoutes, 'BeautifulPlacesCards'>>;
-}
 
-const Login = ({navigation }: LoginProps) => {
+const Login = ({navigation }: AuthNavigationProps<"Login">) => {
     const password = useRef<typeof TextInput>(null);
     const footer = (
         <Footer title='Нет аккаунта?' action='Зарегистрироваться' onPress={() => navigation.navigate('SignUp')}/>
@@ -41,7 +36,7 @@ const Login = ({navigation }: LoginProps) => {
     } = useFormik({
         validationSchema: LoginSchema,
         initialValues: {email: "", password: "", remember: true},
-        onSubmit: () => navigation.navigate("BeautifulPlacesCards"),
+        onSubmit: () => navigation.navigate("Home"),
     });
     return (
         <Container pattern={0} footer={{...footer}}>
