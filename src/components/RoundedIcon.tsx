@@ -21,14 +21,13 @@ const RoundedIcon = ({
             <Box
                 height={size}
                 width={size}
-                borderRadius='m'
+                borderRadius='xl'
                 justifyContent='center'
                 alignItems='center'
                 {...{ backgroundColor }}
             >
                 <Text {...{ width: iconSize, height: iconSize}} {...{color}}>
                     <Icon
-                        color="white"
                         size={iconSize}
                         {...{ name }}
                     />
