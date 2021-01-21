@@ -13,7 +13,12 @@ export const theme = ({
         grey: "rgba(12, 13, 52, 0.05)",
         "slide.grey": "#F4F0EF",
         darkGrey: "#8A8D90",
-        primaryLight: "#E7F9F7"
+        primaryLight: "#E7F9F7",
+        orange: "orange",
+        pink: "pink",
+        yellow: "yellow",
+        violet: "violet",
+
     },
     spacing: {
         s: 8,

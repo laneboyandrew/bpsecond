@@ -8,14 +8,16 @@ interface RoundedIconProps {
     size: number;
     color: keyof Theme['colors'];
     backgroundColor: keyof Theme['colors'];
+    iconRatio: number;
 }
 const RoundedIcon = ({
                          name,
                          size,
                          color,
-                         backgroundColor
+                         backgroundColor,
+                         iconRatio
     }: RoundedIconProps) => {
-    const iconSize = size * 0.8;
+    const iconSize = size * iconRatio;
     return(
         <Box paddingRight='s'>
             <Box
@@ -36,6 +38,10 @@ const RoundedIcon = ({
             </Box>
         </Box>
     )
+};
+
+RoundedIcon.defaultProps = {
+    iconSize: 0.7
 };
 
 export default RoundedIcon
