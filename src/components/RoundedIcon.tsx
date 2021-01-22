@@ -41,7 +41,7 @@ const RoundedIcon = ({
 };
 
 RoundedIcon.defaultProps = {
-    iconSize: 0.7
+    iconRatio: 0.7
 };
 
 export default RoundedIcon

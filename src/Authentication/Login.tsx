@@ -7,8 +7,6 @@ import * as Yup from 'yup';
 import Footer from "./components/Footer";
 import {AuthNavigationProps} from "../components/Navigation";
 import {BorderlessButton} from "react-native-gesture-handler";
-import {HomeNavigator} from "../Home";
-
 
 const LoginSchema = Yup.object().shape({
     email: Yup.string().email('Invalid email').required('Required'),
@@ -18,7 +16,6 @@ const LoginSchema = Yup.object().shape({
         .max(50, 'Too Long!')
         .required('Required'),
 });
-
 
 const Login = ({navigation }: AuthNavigationProps<"Login">) => {
     const password = useRef<typeof TextInput>(null);

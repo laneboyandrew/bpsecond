@@ -14,7 +14,7 @@ const DrawerItem = ({icon, color, screen, label}: DrawerItemProps) => {
     const theme = useTheme();
     return (
         <RectButton style={{ borderRadius: theme.borderRadii.m }}>
-            <Box flexDirection='row' alignItems='center' padding='m' borderRadius='xl'>
+            <Box flexDirection='row' alignItems='center' padding='s' borderRadius='xl'>
                 <RoundedIcon
                     iconRatio={0.5}
                     name={icon}

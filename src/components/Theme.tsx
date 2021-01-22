@@ -1,5 +1,4 @@
-
-import { createText, createBox } from '@shopify/restyle'
+import {createText, createBox} from '@shopify/restyle'
 import {ImageStyle, TextStyle, ViewStyle} from "react-native";
 import {useTheme as useReTheme} from '@shopify/restyle';
 
@@ -61,12 +60,17 @@ export const theme = ({
             fontSize: 15,
             fontFamily: "SFProText-Medium",
             color: "text"
+        },
+        header: {
+            fontSize: 12,
+            lineHeight: 24,
+            fontFamily: "SFProText-SemiBold",
+            color: "secondary"
         }
     },
     breakpoints: {}
 
 });
-
 
 
 export type Theme = typeof theme;
@@ -77,7 +81,7 @@ export const Text = createText<Theme>();
 export const useTheme = () => useReTheme<Theme>();
 type NamedStyles<T> = { [P in keyof T]: ViewStyle | TextStyle | ImageStyle };
 
-export const makeStyles = <T extends NamedStyles<T>>(styles: ( theme: Theme ) => T
+export const makeStyles = <T extends NamedStyles<T>>(styles: (theme: Theme) => T
 ) => () => {
     const currentTheme = useTheme();
     return styles(currentTheme);
