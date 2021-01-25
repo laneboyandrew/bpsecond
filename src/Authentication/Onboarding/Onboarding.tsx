@@ -1,11 +1,10 @@
 import React, {useRef} from "react";
 import {Dimensions, Image, StyleSheet, View} from 'react-native';
-import Animated, {divide, interpolate, multiply} from "react-native-reanimated";
+import Animated, {divide, Extrapolate, interpolate, multiply} from "react-native-reanimated";
 import {useScrollHandler} from "react-native-redash/lib/module/v1";
 import Subslide from "./Subslide"
 import Slide, {BORDER_RADIUS, SLIDE_HEIGHT} from "./Slide"
 import Dot from "./Dot"
-import Extrapolate = module;
 
 
 const {width} = Dimensions.get("window")
@@ -104,13 +103,13 @@ const Onboarding = () => {
                             extrapolate: Extrapolate.CLAMP
                         })
                             return (
-                                <Animated.View style={styles.underlay} key={index}>
+                                <View style={styles.underlay} key={index}>
                                 <Image source={picture.src} style={{
                                     opacity,
                                     width: width - BORDER_RADIUS,
                                     height: ((width - BORDER_RADIUS) * picture.height) / picture.width,
                                 }}/>
-                            </Animated.View>)
+                            </View>)
                         }
                     )
                 }
