@@ -4,6 +4,7 @@ import {Box, Header, RoundedIcon, RoundedIconButton, Text} from "../../component
 import DrawerItem, {DrawerItemProps} from "./DrawerItem";
 import {theme} from "../../components/Theme";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
+import { DrawerActions, useNavigation } from "@react-navigation/native";
 
 
 const {width, height} = Dimensions.get("window");
@@ -54,6 +55,7 @@ interface DrawerProps {
 }
 
 const DrawerContent = () => {
+   const navigation = useNavigation();
     return (
         <Box flex={1}>
             <Box flex={0.2}
@@ -70,8 +72,9 @@ const DrawerContent = () => {
                 />
                 <Header
                     title='Профиль'
-                    left={{ icon: 'x', onPress: () => true }}
+                    left={{ icon: 'x', onPress: () => navigation.dispatch(DrawerActions.closeDrawer())}}
                     right={{ icon: 'shopping-bag', onPress: () => true }}
+                    dark
                 />
 
             </Box>
@@ -123,5 +126,7 @@ const DrawerContent = () => {
         </Box>
     )
 };
+
+
 export default DrawerContent
 

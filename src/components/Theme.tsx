@@ -10,6 +10,7 @@ export const theme = ({
         text: "rgba(12, 13, 52, 0.7)",
         white: "white",
         grey: "rgba(12, 13, 52, 0.05)",
+        lightGrey: "#FAFAFA",
         "slide.grey": "#F4F0EF",
         darkGrey: "#8A8D90",
         primaryLight: "#E7F9F7",
@@ -17,6 +18,7 @@ export const theme = ({
         pink: "pink",
         yellow: "yellow",
         violet: "violet",
+        lightBlue: "#BFEAF5",
 
     },
     spacing: {
