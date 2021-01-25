@@ -1,26 +1,27 @@
 import React from "react";
-import {View, Text} from "react-native";
-import {DrawerNavigationProp} from "@react-navigation/drawer/lib/typescript/src/types";
-import {Box, Header} from "../../components";
-import {HomeNavigationProp} from "../../components/Navigation";
-import { DrawerActions } from "@react-navigation/native";
-import {Background} from "./index";
 
 
 interface BeautifulPlacesCardsProps {
 
 }
+import {HomeNavigationProps} from "../../components/Navigation";
+import Background from "./Background";
+import Card from "./Card";
+import {Box, Header} from "../../components";
 
-const BeautifulPlacesCards = ({ navigation }: HomeNavigationProp<"BeautifulPlacesCards">) => {
+const BeautifulPlacesCards = ({ navigation }: HomeNavigationProps<"BeautifulPlacesCards">) => {
     return (
-        <Box>
+        <Box flex={1} backgroundColor="white">
             <Header
-                title='Подборка мест'
-                left={{icon: "menu", onPress: () => navigation.dispatch(DrawerActions.openDrawer)}}
-                right={{icon: "shopping-bag", onPress: () => true}}
+                title="Карточки мест"
+                left={{ icon: 'menu', onPress: () => navigation.openDrawer() }}
+                right={{ icon: 'shopping-bag', onPress: () => true }}
             />
             <Box flex={1}>
                 <Background />
+                <Card position={1} />
+                <Card position={0.5} />
+                <Card position={0} />
             </Box>
         </Box>
     )

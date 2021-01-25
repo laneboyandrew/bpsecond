@@ -5,8 +5,11 @@ import {useScrollHandler} from "react-native-redash/lib/module/v1";
 import Subslide from "./Subslide"
 import Slide, {SLIDE_HEIGHT} from "./Slide"
 import Dot from "./Dot"
+
+
 import {AuthNavigationProps} from "../../components/Navigation";
 import {makeStyles, Theme} from "../../components/Theme";
+
 
 const {width, height} = Dimensions.get("window");
 const useStyles = makeStyles((theme: Theme) => ({
@@ -108,6 +111,7 @@ const Onboarding = ({navigation}: AuthNavigationProps<"Onboarding">) => {
                                 extrapolate: Extrapolate.CLAMP
                             })
                             return (
+
                                 <Animated.View style={[styles.underlay, {opacity}]} key={index}>
                                     <Image source={picture.src}
                                            style={{

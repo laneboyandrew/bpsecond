@@ -14,7 +14,7 @@ const Welcome = ({navigation}: AuthNavigationProps<"Welcome">) => {
 
     return (
         <Box flex={1} backgroundColor="white">
-            <Box flex={1} borderBottomRightRadius="xl" backgroundColor="slide.grey" alignItems="center" justifyContent="flexEnd">
+            <Box flex={1} borderBottomRightRadius="xl" backgroundColor="slide.grey" alignItems="center" justifyContent="center">
                 <Image source={picture.src}
                        style={{
                            width: width,
