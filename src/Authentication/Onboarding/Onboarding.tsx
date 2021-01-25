@@ -3,12 +3,16 @@ import {Dimensions, Image, StyleSheet, View} from 'react-native';
 import Animated, {divide, Extrapolate, interpolate, multiply} from "react-native-reanimated";
 import {useScrollHandler} from "react-native-redash/lib/module/v1";
 import Subslide from "./Subslide"
-import Slide, {BORDER_RADIUS, SLIDE_HEIGHT} from "./Slide"
+import Slide, {SLIDE_HEIGHT} from "./Slide"
 import Dot from "./Dot"
 
 
-const {width} = Dimensions.get("window")
-const styles = StyleSheet.create({
+import {AuthNavigationProps} from "../../components/Navigation";
+import {makeStyles, Theme} from "../../components/Theme";
+
+
+const {width, height} = Dimensions.get("window");
+const useStyles = makeStyles((theme: Theme) => ({
     container: {
         flex: 1,
         backgroundColor: "white"
@@ -16,7 +20,7 @@ const styles = StyleSheet.create({
     slider: {
         height: SLIDE_HEIGHT,
         backgroundColor: "cyan",
-        borderBottomRightRadius: BORDER_RADIUS
+        borderBottomRightRadius: theme.borderRadii.xl
     },
     footer: {
         flex: 1
@@ -24,11 +28,11 @@ const styles = StyleSheet.create({
     footerContent: {
         flex: 1,
         backgroundColor: "white",
-        borderTopLeftRadius: BORDER_RADIUS
+
     },
     pagination: {
         ...StyleSheet.absoluteFillObject,
-        height: BORDER_RADIUS,
+        height: theme.borderRadii.xl,
         flexDirection: "row",
         justifyContent: "center",
         alignItems: "center",
@@ -37,10 +41,10 @@ const styles = StyleSheet.create({
         ...StyleSheet.absoluteFillObject,
         alignItems: "center",
         justifyContent: "flex-end",
-        borderBottomRightRadius: BORDER_RADIUS,
+        borderBottomRightRadius: theme.borderRadii.xl,
         overflow: "hidden"
     }
-})
+}));
 
 const slides = [
     {
@@ -49,9 +53,9 @@ const slides = [
         description: "Посещайте красивые места вместе с друзьями",
         color: "#BFEAF5",
         picture: {
+            ...StyleSheet.absoluteFillObject,
             src: require("./../../../assets/introduceImages/1.jpg"),
-            width: 2513,
-            height: 3583,
+
         },
     },
     {
@@ -61,8 +65,7 @@ const slides = [
         color: "orange",
         picture: {
             src: require("./../../../assets/introduceImages/2.jpg"),
-            width: 2791,
-            height: 3744,
+
         },
     },
     {
@@ -72,8 +75,7 @@ const slides = [
         color: "powderblue",
         picture: {
             src: require("./../../../assets/introduceImages/3.jpg"),
-            width: 2738,
-            height: 3244,
+
         },
     },
     {
@@ -83,12 +85,14 @@ const slides = [
         color: "red",
         picture: {
             src: require("./../../../assets/introduceImages/4.jpg"),
-            width: 1757,
-            height: 2551,
+
         },
     }
-]
-const Onboarding = () => {
+];
+export const assets = slides.map((slide) => slide.picture.src);
+const Onboarding = ({navigation}: AuthNavigationProps<"Onboarding">) => {
+    const styles = useStyles();
+
     const scroll = useRef<Animated.ScrollView>(null)
     // TODO: ОБНОВИТЬ useValues из-за него не работает скролл между слайдами и скролл футера
     const {scrollHandler, x} = useScrollHandler()
@@ -96,20 +100,25 @@ const Onboarding = () => {
         <Animated.View style={styles.container}>
             <Animated.View style={[styles.slider]}>
                 {
-                    slides.map(({ picture}, index) => {
-                        const opacity = interpolate(x, {
-                            inputRange: [(index-1) * width, index * width, (index+1)*width],
-                            outputRange: [0, 1, 0],
-                            extrapolate: Extrapolate.CLAMP
-                        })
+                    slides.map(({picture}, index) => {
+                            const opacity = interpolate(x, {
+                                inputRange: [
+                                    (index - 1) * width,
+                                    index * width,
+                                    (index + 1) * width
+                                ],
+                                outputRange: [0, 1, 0],
+                                extrapolate: Extrapolate.CLAMP
+                            })
                             return (
-                                <View style={styles.underlay} key={index}>
-                                <Image source={picture.src} style={{
-                                    opacity,
-                                    width: width - BORDER_RADIUS,
-                                    height: ((width - BORDER_RADIUS) * picture.height) / picture.width,
-                                }}/>
-                            </View>)
+
+                                <Animated.View style={[styles.underlay, {opacity}]} key={index}>
+                                    <Image source={picture.src}
+                                           style={{
+                                               width: width,
+                                               height: height / 1.6
+                                           }}/>
+                                </Animated.View>)
                         }
                     )
                 }
@@ -146,28 +155,31 @@ const Onboarding = () => {
                             transform: [{translateX: multiply(x, -1)}],
                         }
                     }>
-                        {slides.map(({subtitle, description}, index) => (
-
-                                <Subslide
-                                    onPress={() => {
-                                        if (scroll.current) {
-                                            scroll.current.getNode().scrollTo({x: width * (index + 1), animated: true})
-                                        }
-                                    }}
-                                    key={index}
-                                    last={index === slides.length - 1}
-                                    {...{subtitle, description}}/>
-                            )
+                        {slides.map(({subtitle, description}, index) => {
+                            const last = index === slides.length - 1;
+                                return (
+                                    <Subslide
+                                        onPress={() => {
+                                            if (last){
+                                                navigation.navigate("Welcome");
+                                            } else {
+                                                scroll.current
+                                                    ?.getNode()
+                                                    .scrollTo({x: width * (index + 1), animated: true})
+                                            }
+                                        }}
+                                        key={index}
+                                        {...{subtitle, description, last}}/>
+                                )
+                            }
                         )
                         }
-
                     </Animated.View>
-
                 </View>
             </View>
         </Animated.View>
     )
-}
+};
 
 export default Onboarding
 
