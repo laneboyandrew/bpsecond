@@ -14,32 +14,34 @@ const height = width * (425 / 294);
 const borderRadius = 24;
 
 interface CardProps {
-    position: Animated.Adaptable<number>;
+    position: Animated.Node<number>;
+    onSwipe: () => void;
 }
 
-const Card = ({position}: CardProps) => {
+const Card = ({position, onSwipe}: CardProps) => {
     const {gestureHandler, translation, velocity, state} = usePanGestureHandler()
     const backgroundColor = Animated.interpolateColors(position, {
         inputRange: [0, 1],
         outputColorRange: ['#C9E9E7', '#74BCB8']
     })
-    const translateYOffset = mix(position, 0, -50)
-    const scale = mix(position, 1, 0.9);
-    const translateX = withSpring({
-        value: translation.x,
-        velocity: velocity.x,
-        state,
-        snapPoints: [-width, 0, width]
-    })
-    const translateY = add(
-        translateYOffset,
-        withSpring({
-            value: translation.y,
-            velocity: velocity.y,
+        const translateYOffset = mix(position, 0, -50)
+        const scale = mix(position, 1, 0.9);
+        const translateX = withSpring({
+            value: translation.x,
+            velocity: velocity.x,
             state,
-            snapPoints: [0]
+            snapPoints: [-width, 0, width],
+            onSnap: ([x]) => x !== 0 && onSwipe(),
         })
-    )
+        const translateY = add(
+            translateYOffset,
+            withSpring({
+                value: translation.y,
+                velocity: velocity.y,
+                state,
+                snapPoints: [0]
+            })
+        )
     return (
         <Box
             style={StyleSheet.absoluteFill}
