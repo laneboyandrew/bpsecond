@@ -1,11 +1,11 @@
 import React from "react";
-import {StyleSheet, Dimensions} from "react-native";
-import Animated, {add} from "react-native-reanimated";
+import {Dimensions, ImageRequireSource, StyleSheet} from "react-native";
+import Animated, {add, Extrapolate, interpolate} from "react-native-reanimated";
 import {Box} from "../../components";
 import {mix} from "react-native-redash";
 import {PanGestureHandler} from "react-native-gesture-handler";
-import {usePanGestureHandler, withSpring} from "react-native-redash/lib/module/v1";
-import {useTransition} from "react-native-redash/lib/typescript/v1";
+import {usePanGestureHandler} from "react-native-redash/lib/module/v1";
+import {useSpring} from "./Animations";
 
 
 const {width: wWidth} = Dimensions.get("window");
@@ -16,9 +16,11 @@ const borderRadius = 24;
 interface CardProps {
     position: Animated.Node<number>;
     onSwipe: () => void;
+    source: ImageRequireSource;
+    step: number;
 }
 
-const Card = ({position, onSwipe}: CardProps) => {
+const Card = ({position, onSwipe, source, step}: CardProps) => {
     const {gestureHandler, translation, velocity, state} = usePanGestureHandler()
     const backgroundColor = Animated.interpolateColors(position, {
         inputRange: [0, 1],
@@ -26,16 +28,21 @@ const Card = ({position, onSwipe}: CardProps) => {
     })
         const translateYOffset = mix(position, 0, -50)
         const scale = mix(position, 1, 0.9);
-        const translateX = withSpring({
+        const imageScale = interpolate(position, {
+            inputRange: [0, step],
+            outputRange: [1, 0.8],
+            extrapolate: Extrapolate.CLAMP,
+        })
+        const translateX = useSpring({
             value: translation.x,
             velocity: velocity.x,
             state,
-            snapPoints: [-width, 0, width],
+            snapPoints: [-wWidth, 0, width],
             onSnap: ([x]) => x !== 0 && onSwipe(),
         })
         const translateY = add(
             translateYOffset,
-            withSpring({
+            useSpring({
                 value: translation.y,
                 velocity: velocity.y,
                 state,
@@ -55,9 +62,12 @@ const Card = ({position, onSwipe}: CardProps) => {
                         width,
                         height,
                         borderRadius,
-                        transform: [{translateY}, {translateX}, {scale}]
+                        transform: [{translateY}, {translateX}, {scale}],
+                        overflow: 'hidden'
                     }}
-                />
+                >
+                    <Animated.Image {...{source}} style={{ ...StyleSheet.absoluteFillObject, width: undefined, height: undefined }} />
+                </Animated.View>
             </PanGestureHandler>
         </Box>
     )

@@ -14,15 +14,19 @@ import {sub} from "react-native-reanimated";
 const cards = [
     {
         index: 3,
+        source: require("../../../assets/introduceImages/4.jpg")
     },
     {
         index: 2,
+        source: require("../../../assets/introduceImages/3.jpg")
     },
     {
         index: 1,
+        source: require("../../../assets/introduceImages/2.jpg")
     },
     {
         index: 0,
+        source: require("../../../assets/introduceImages/1.jpg")
     }
 ]
 
@@ -41,24 +45,24 @@ const BeautifulPlacesCards = ({ navigation }: HomeNavigationProps<"BeautifulPlac
                 <Background />
                 {/*Using without interpolate until Reanimated 2 update */}
                 {cards.map(
-                    ({index}) =>
+                    ({index, source}) =>
                         currentIndex < index * step + step && (
-
                             <Card
                                 key={index}
-                                position={1}
+                                position={0}
                                 // position={sub(index * step, aIndex)}
                                 // position={interpolate(index, {
                                 //     inputRange: [aIndex, cards.length - 1],
                                 //     outputRange: [0, 1]
                                 // })}
                                 onSwipe={() => setCurrentIndex((prev) => prev + step)}
+                                {...{ source, step }}
                             />
                     ))
                 }
-                <Card position={1} />
-                <Card position={0.5} />
-                <Card position={0} />
+                {/*<Card position={1} />*/}
+                {/*<Card position={0.5} />*/}
+                {/*<Card position={0} />*/}
             </Box>
         </Box>
     )
