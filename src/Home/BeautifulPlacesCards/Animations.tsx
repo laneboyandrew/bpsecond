@@ -1,6 +1,6 @@
-import {useClock, useValue, WithSpringParams} from "react-native-redash/lib/module/v1"
+import {useClock} from "react-native-redash/lib/module/v1"
 import {useState} from "react";
-import {add, block, call, cond, eq, set, spring, startClock, stopClock} from "react-native-reanimated";
+import Animated, {add, block, call, cond, eq, set, spring, startClock, stopClock, useValue} from "react-native-reanimated";
 import {State} from "react-native-gesture-handler";
 import {snapPoint} from "react-native-redash";
 
@@ -12,9 +12,14 @@ interface WithSpringParams {
     onSnap?: (values: readonly number[]) => void;
 }
 
-export const useSpring = ({value, velocity, state: gestureState, snapPoints, onSnap}: WithSpringParams) => {
+export const useSpring = ({
+                              value,
+                              velocity,
+                              state: gestureState,
+                              snapPoints,
+                              onSnap}: WithSpringParams) => {
     const offset = useValue(0);
-    const clock = useClock();
+    const clock = new useClock();
     const state = {
         position: useValue(0),
         finished: useValue(0),
@@ -55,9 +60,12 @@ export const useSpring = ({value, velocity, state: gestureState, snapPoints, onS
         cond(eq(gestureState, State.END), [
             startClock(clock),
             spring(clock, state, config),
-            cond(state.finished), [onSnap && call([state.position], onSnap)
-            ]
+            cond(state.finished,
+            [
+                onSnap && call([state.position], onSnap)
+            ])
         ]),
     ]),
+        //перенести на 1 блок выше для того чтобы работало (вылетает вероятнее всего из-за несовместимости redash)
         state.position
 }
