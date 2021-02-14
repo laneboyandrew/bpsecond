@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-
+import Categories from "./Categories"
 
 interface BeautifulPlacesCardsProps {
 
@@ -41,7 +41,9 @@ const BeautifulPlacesCards = ({ navigation }: HomeNavigationProps<"BeautifulPlac
                 left={{ icon: 'menu', onPress: () => navigation.openDrawer() }}
                 right={{ icon: 'shopping-bag', onPress: () => true }}
             />
+            <Categories />
             <Box flex={1}>
+
                 <Background />
                 {/*Using without interpolate until Reanimated 2 update */}
                 {cards.map(
