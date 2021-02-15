@@ -44,7 +44,4 @@ const Header = ({title, left, right, dark}: HeaderProps) => {
     )
 };
 
-Header.defaultProps = {
-    dark: false
-};
 export default Header

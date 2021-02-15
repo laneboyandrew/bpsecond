@@ -110,7 +110,9 @@ const DrawerContent = () => {
                         <Text marginTop='l' variant='title1' textAlign='center'>Andrey</Text>
                         <Text variant='body' textAlign='center'>andrejgrach@icloud.com</Text>
                         </Box>
-                        {items.map(item => (<DrawerItem key={item.screen} {...item}/>))}
+                        {items.map(item => (
+                            <DrawerItem key={item.icon} {...item}/>)
+                        )}
                     </Box>
 
             </Box>

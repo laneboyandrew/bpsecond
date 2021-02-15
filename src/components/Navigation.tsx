@@ -32,4 +32,5 @@ export type AuthenticationRoutes = {
 
 export type HomeRoutes = {
     BeautifulPlacesCards: undefined;
+    FavouritePlaces: undefined;
 }
