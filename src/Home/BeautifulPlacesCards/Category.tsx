@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import {View, StyleSheet, TouchableWithoutFeedback} from "react-native";
 import {Box, Text} from "../../components";
 import {BorderlessButton, RectButton} from "react-native-gesture-handler";
+import BorderlessTap from "./BorderlessTap";
 const SIZE = 60;
 const INNER_RADIUS = 30;
 const OUTER_RADIUS = 34;
@@ -19,7 +20,7 @@ const Category = ({
                   }: CategoryProps) => {
     const [selected, setSelected] = useState(false);
     return (
-        <TouchableWithoutFeedback onPress={() => setSelected((prev) => !prev)}>
+        <BorderlessTap onPress={() => setSelected((prev) => !prev)}>
             <Box marginLeft='m' marginTop="s" alignItems='center'>
                 <Box
                     width={OUTER_RADIUS * 2}
@@ -48,7 +49,7 @@ const Category = ({
                     {title}
                 </Text>
             </Box>
-        </TouchableWithoutFeedback>
+        </BorderlessTap>
     )
 }
 
