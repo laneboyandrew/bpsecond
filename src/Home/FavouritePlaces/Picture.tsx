@@ -1,5 +1,5 @@
-import React from "react";
-import {Box} from "../../components";
+import React, {useState} from "react";
+import {BorderlessTap, Box, RoundedIcon} from "../../components";
 import {View} from "react-native";
 
 
@@ -8,16 +8,41 @@ interface PictureProps {
         id: number;
         color: string;
         aspectRatio: number;
+        selected: boolean;
     }
     width: number;
 }
 
 const Picture = ({
-                     picture: {color: backgroundColor, aspectRatio},
+                     picture,
                      width
                  }: PictureProps) => {
+    const [selected, setSelected] = useState(false);
     return (
-        <Box borderRadius="m" marginBottom='m' style={{ backgroundColor, width, height: width * aspectRatio }}/>
+        <BorderlessTap onPress={() => {
+            setSelected(prev => !prev);
+            picture.selected = !picture.selected;
+        }}>
+            <Box
+                borderRadius="m"
+                marginBottom='m'
+                alignItems='flex-end'
+                padding='m'
+                style={{
+                    backgroundColor: picture.color,
+                    width,
+                    height: width *  picture.aspectRatio
+                }}
+            >
+                {selected && (
+                    <RoundedIcon
+                        backgroundColor="primary"
+                        color="white"
+                        size={24} name="check"
+                    />
+                )}
+            </Box>
+        </BorderlessTap>
     )
 }
 

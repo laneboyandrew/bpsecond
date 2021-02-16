@@ -9,7 +9,6 @@ import Background from "./Background";
 import Card from "./Card";
 import {Box, Header} from "../../components";
 import {useTransition} from "react-native-redash/lib/module/v1";
-import {sub} from "react-native-reanimated";
 
 const cards = [
     {
