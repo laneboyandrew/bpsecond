@@ -34,8 +34,8 @@ const items = [
     },
     {
         icon: "clock",
-        label: "History",
-        screen: "TransHistory",
+        label: "История путешествий",
+        screen: "TravelsHistory",
         color: "pink"
     },
     {
