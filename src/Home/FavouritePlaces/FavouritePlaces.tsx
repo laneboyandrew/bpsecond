@@ -1,9 +1,12 @@
-import React, {useState} from "react";
+import React, {useRef, useState} from "react";
 import {Box, Header, useTheme} from "../../components";
 import {Dimensions, ScrollView, View} from "react-native";
 import {HomeNavigationProps} from "../../components/Navigation";
 import Footer from './Footer';
 import Picture from './Picture';
+import {Transition, Transitioning, TransitioningView} from "react-native-reanimated";
+import TopCurve from "./TopCurve";
+
 
 const {width: wWidth} = Dimensions.get('window')
 const defaultPictures = [
@@ -69,6 +72,16 @@ const defaultPictures = [
     },
 ]
 const FavouritePlaces = ({navigation}: HomeNavigationProps<"FavouritePlaces">) => {
+
+
+    const transition = (
+        <Transition.Together>
+            <Transition.Change interpolation='easeInOut' durationMs={1000}/>
+        </Transition.Together>
+    );
+
+
+    const list = useRef<TransitioningView>(null);
     const theme = useTheme()
     const width = (wWidth - theme.spacing.m * 3) / 2;
     const [footerHeight, setFooterHeight] = useState(0);
@@ -81,33 +94,39 @@ const FavouritePlaces = ({navigation}: HomeNavigationProps<"FavouritePlaces">) =
                 left={{icon: 'menu', onPress: () => navigation.openDrawer()}}
                 right={{icon: 'shopping-bag', onPress: () => true}}
             />
+
+
             <Box flex={1}>
                 <ScrollView contentContainerStyle={{
                     paddingHorizontal: theme.spacing.m,
                     paddingBottom: footerHeight
                 }}>
-                    <Box flexDirection='row'>
-                        <Box marginRight='s'>
-                            {pictures.filter((_, i) => i % 2 !== 0).map((picture) => <Picture key={picture.id}
-                                                                                              picture={picture}
-                                                                                              width={width}/>)}
+                    <Transitioning.View ref={list} transition={transition}>
+                        <Box flexDirection='row'>
+                            <Box marginRight='s'>
+                                {pictures.filter(({id}) => id % 2 !== 0).map((picture) => <Picture key={picture.id}
+                                                                                                   picture={picture}
+                                                                                                   width={width}/>)}
+                            </Box>
+                            <Box>
+                                {pictures.filter(({id}) => id % 2 === 0).map((picture) => <Picture key={picture.id}
+                                                                                                   picture={picture}
+                                                                                                   width={width}/>)}
+                            </Box>
                         </Box>
-                        <Box>
-                            {pictures.filter((_, i) => i % 2 === 0).map((picture) => <Picture key={picture.id}
-                                                                                              picture={picture}
-                                                                                              width={width}/>)}
-                        </Box>
-                    </Box>
+                    </Transitioning.View>
                 </ScrollView>
+                <TopCurve footerHeight={footerHeight}/>
                 <Box position='absolute' bottom={0} left={0} right={0} onLayout={({
-                    nativeEvent: {
-                        layout: { height },
-                    }
-                }) => setFooterHeight(height)}>
-                    {/* Фильтрует исходя из выбранных картинок в компоненте Picture из Picture возвращается информация о том выбрана картинка или нет:
-                    picture.selected = !picture.selected; и после этого не выбранные картинки сохраняются в текущий стейт pictures остальные удаляются
-                    При использовании сервера заменюна подгрузку картинок из избранного текущего пользователя*/}
+                                                                                      nativeEvent: {
+                                                                                          layout: {height},
+                                                                                      }
+                                                                                  }) => setFooterHeight(height)}>
+                    {/* Фильтрует исходя из выбранных картинок в компоненте Picture. Из Picture возвращается информация о том выбрана картинка или нет:
+                    picture.selected = !picture.selected; и после этого не выбранные картинки сохраняются в текущий стейт pictures выбранные удаляются
+                    При использовании сервера заменю на подгрузку картинок из избранного текущего пользователя*/}
                     <Footer label="Удалить из избранного" onPress={() => {
+                        list.current?.animateNextTransition();
                         setPictures(pictures.filter((picture => !picture.selected)))
                         // console.log(defaultPictures)
                     }}/>
