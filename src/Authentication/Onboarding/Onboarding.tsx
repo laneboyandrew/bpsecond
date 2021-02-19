@@ -60,7 +60,7 @@ const slides = [
     },
     {
         title: 'Красота',
-        subtitle: "Смотрите на карсоту",
+        subtitle: "Смотрите на красоту",
         description: "Много красивых мест",
         color: "orange",
         picture: {

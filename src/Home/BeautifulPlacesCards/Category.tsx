@@ -1,9 +1,7 @@
 import React, {useState} from "react";
-import {View, StyleSheet, TouchableWithoutFeedback} from "react-native";
+import {View, StyleSheet} from "react-native";
 import {Box, Text} from "../../components";
-import {BorderlessButton, RectButton} from "react-native-gesture-handler";
 import BorderlessTap from "../../components/BorderlessTap";
-const SIZE = 60;
 const INNER_RADIUS = 30;
 const OUTER_RADIUS = 34;
 
@@ -52,5 +50,4 @@ const Category = ({
         </BorderlessTap>
     )
 }
-
 export default Category
