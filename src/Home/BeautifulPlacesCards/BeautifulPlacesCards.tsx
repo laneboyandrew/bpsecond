@@ -9,22 +9,23 @@ import Background from "./Background";
 import Card from "./Card";
 import {Box, Header} from "../../components";
 import {useTransition} from "react-native-redash/lib/module/v1";
+import {interpolate, sub} from "react-native-reanimated";
 
 const cards = [
     {
-        index: 3,
+        index: 4,
         source: require("../../../assets/introduceImages/4.jpg")
     },
     {
-        index: 2,
+        index: 3,
         source: require("../../../assets/introduceImages/3.jpg")
     },
     {
-        index: 1,
+        index: 2,
         source: require("../../../assets/introduceImages/2.jpg")
     },
     {
-        index: 0,
+        index: 1,
         source: require("../../../assets/introduceImages/1.jpg")
     }
 ]
@@ -42,7 +43,6 @@ const BeautifulPlacesCards = ({ navigation }: HomeNavigationProps<"BeautifulPlac
             />
             <Categories />
             <Box flex={1}>
-
                 <Background />
                 {/*Using without interpolate until Reanimated 2 update */}
                 {cards.map(
@@ -50,8 +50,8 @@ const BeautifulPlacesCards = ({ navigation }: HomeNavigationProps<"BeautifulPlac
                         currentIndex < index * step + step && (
                             <Card
                                 key={index}
-                                position={0}
-                                // position={sub(index * step, aIndex)}
+                                // position={0}
+                                position={sub(index * step, aIndex)}
                                 // position={interpolate(index, {
                                 //     inputRange: [aIndex, cards.length - 1],
                                 //     outputRange: [0, 1]
