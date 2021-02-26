@@ -2,69 +2,104 @@ import React from "react";
 
 import {HomeNavigationProps} from "../components/Navigation";
 import {Box, Header, Text} from "../components";
-import Graph, {DataPoint} from "./Graph"
+import Graph, {DataPoint} from "./Graph/Graph"
 
 const data: DataPoint[] = [
     {
         date: new Date("2020-09-20").getTime(),
-        value: 1,
-        color: 'primary'
+        value: 0,
+        color: 'january'
     },
     {
         date: new Date("2020-10-20").getTime(),
-        value: 1,
-        color: 'primary'
+        value: 0,
+        color: 'february'
     },
     {
         date: new Date("2020-11-20").getTime(),
-        value: 2,
-        color: 'primary'
+        value: 0,
+        color: 'march'
     },
     {
         date: new Date("2020-12-20").getTime(),
-        value: 3,
-        color: 'primary'
+        value: 0,
+        color: 'april'
     },
     {
         date: new Date("2021-01-20").getTime(),
-        value: 4,
-        color: 'primary'
+        value: 0,
+        color: 'may'
     },
     {
         date: new Date("2021-02-20").getTime(),
-        value: 5,
-        color: 'primary'
+        value: 0,
+        color: 'june'
     },
     {
         date: new Date("2021-03-20").getTime(),
-        value: 6,
-        color: 'primary'
+        value: 0,
+        color: 'july'
     },
     {
         date: new Date("2021-04-20").getTime(),
-        value: 7,
-        color: 'primary'
+        value: 0,
+        color: 'august'
     },
     {
         date: new Date("2021-05-20").getTime(),
-        value: 80,
-        color: 'primary'
+        value: 0,
+        color: 'september'
     },
     {
         date: new Date("2021-06-20").getTime(),
-        value: 90,
-        color: 'primary'
+        value: 0,
+        color: 'october'
     },
     {
         date: new Date("2021-07-20").getTime(),
-        value: 100,
-        color: 'primary'
+        value: 0,
+        color: 'november'
     },
     {
         date: new Date("2021-08-20").getTime(),
-        value: 110,
-        color: 'primary'
+        value: 114,
+        color: 'december'
     },
+    // {
+    //     date: new Date("2021-02-20").getTime(),
+    //     value: 5,
+    //     color: 'primary'
+    // },
+    // {
+    //     date: new Date("2021-03-20").getTime(),
+    //     value: 6,
+    //     color: 'primary'
+    // },
+    // {
+    //     date: new Date("2021-04-20").getTime(),
+    //     value: 7,
+    //     color: 'primary'
+    // },
+    // {
+    //     date: new Date("2021-05-20").getTime(),
+    //     value: 80,
+    //     color: 'primary'
+    // },
+    // {
+    //     date: new Date("2021-06-20").getTime(),
+    //     value: 90,
+    //     color: 'primary'
+    // },
+    // {
+    //     date: new Date("2021-07-20").getTime(),
+    //     value: 100,
+    //     color: 'primary'
+    // },
+    // {
+    //     date: new Date("2021-08-20").getTime(),
+    //     value: 110,
+    //     color: 'primary'
+    // },
 ]
 
 

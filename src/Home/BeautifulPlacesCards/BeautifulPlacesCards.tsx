@@ -50,8 +50,8 @@ const BeautifulPlacesCards = ({ navigation }: HomeNavigationProps<"BeautifulPlac
                         currentIndex < index * step + step && (
                             <Card
                                 key={index}
-                                // position={0}
-                                position={sub(index * step, aIndex)}
+                                position={0}
+                                // position={sub(index * step, aIndex)}
                                 // position={interpolate(index, {
                                 //     inputRange: [aIndex, cards.length - 1],
                                 //     outputRange: [0, 1]

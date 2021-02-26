@@ -19,10 +19,19 @@ export const theme = ({
         violet: "violet",
         lightGrey: "#FAFAFA",
         lightBlue: "#BFEAF5",
-        lightSeaGreen: "#20B2AA"
-
-
-
+        lightSeaGreen: "#20B2AA",
+        january: "#5492B3",
+        february: "#062CB3",
+        march: '#B3B118',
+        april: '#7CB800',
+        may: '#E05038',
+        june: '#F01F01',
+        july: '#FA0801',
+        august: '#F0023E',
+        september: '#4DBD00',
+        october: '#BD8709',
+        november: '#E06812',
+        december: '#6765BD'
     },
     spacing: {
         s: 8,
