@@ -21,7 +21,14 @@ const Underlay = ({dates, minY, maxY, step}: UnderlayProps) => {
                 {
                     [1, 0.66, 0.33, 0].map((t) => {
                         return (
-                            <Box key={t} flexDirection="row" alignItems="center" height={ROW_HEIGHT} style={{ top: t === 0 ? ROW_HEIGHT / 2 : (t === 1 ? -ROW_HEIGHT/2 : 0)}}>
+                            <Box
+                                key={t}
+                                flexDirection="row"
+                                alignItems="center"
+                                height={ROW_HEIGHT}
+                                style={{
+                                    top: t === 0 ? ROW_HEIGHT / 2 : t === 1 ? -ROW_HEIGHT / 2 : 0
+                                }}>
                                 <Box width={theme.spacing[MARGIN]} paddingRight='s'>
                                     <Text color="darkGrey" textAlign="right">
                                         {Math.round(lerp(minY, maxY, t))}
