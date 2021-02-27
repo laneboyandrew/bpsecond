@@ -11,10 +11,13 @@ export interface DataPoint {
     date: number;
     value: number;
     color: keyof Theme["colors"]
+    id: number;
 }
 
 interface GraphProps {
     data: DataPoint[];
+    minDate: number;
+    maxDate: number;
 }
 
 

@@ -3,103 +3,85 @@ import React from "react";
 import {HomeNavigationProps} from "../components/Navigation";
 import {Box, Header, Text} from "../components";
 import Graph, {DataPoint} from "./Graph/Graph"
+import {ScrollView} from "react-native";
+import Travel from './Travel';
+const minDate = new Date("2020-01-01").getTime();
+const maxDate = new Date("2021-12-30").getTime();
+
 
 const data: DataPoint[] = [
     {
         date: new Date("2020-09-20").getTime(),
         value: 0,
-        color: 'january'
+        color: 'january',
+        id: 0
     },
     {
         date: new Date("2020-10-20").getTime(),
         value: 0,
-        color: 'february'
+        color: 'february',
+        id: 0
     },
     {
         date: new Date("2020-11-20").getTime(),
         value: 0,
-        color: 'march'
+        color: 'march',
+        id: 0
     },
     {
         date: new Date("2020-12-20").getTime(),
         value: 0,
-        color: 'april'
+        color: 'april',
+        id: 0
     },
     {
         date: new Date("2021-01-20").getTime(),
         value: 0,
-        color: 'may'
+        color: 'may',
+        id: 0
     },
     {
         date: new Date("2021-02-20").getTime(),
         value: 0,
-        color: 'june'
+        color: 'june',
+        id: 0
     },
     {
         date: new Date("2021-03-20").getTime(),
         value: 0,
-        color: 'july'
+        color: 'july',
+        id: 0
     },
     {
         date: new Date("2021-04-20").getTime(),
         value: 0,
-        color: 'august'
+        color: 'august',
+        id: 0
     },
     {
         date: new Date("2021-05-20").getTime(),
         value: 0,
-        color: 'september'
+        color: 'september',
+        id: 0
     },
     {
         date: new Date("2021-06-20").getTime(),
         value: 0,
-        color: 'october'
+        color: 'october',
+        id: 0
     },
     {
         date: new Date("2021-07-20").getTime(),
         value: 0,
-        color: 'november'
+        color: 'november',
+        id: 0
     },
     {
         date: new Date("2021-08-20").getTime(),
         value: 114,
-        color: 'december'
+        color: 'december',
+        id: 1
     },
-    // {
-    //     date: new Date("2021-02-20").getTime(),
-    //     value: 5,
-    //     color: 'primary'
-    // },
-    // {
-    //     date: new Date("2021-03-20").getTime(),
-    //     value: 6,
-    //     color: 'primary'
-    // },
-    // {
-    //     date: new Date("2021-04-20").getTime(),
-    //     value: 7,
-    //     color: 'primary'
-    // },
-    // {
-    //     date: new Date("2021-05-20").getTime(),
-    //     value: 80,
-    //     color: 'primary'
-    // },
-    // {
-    //     date: new Date("2021-06-20").getTime(),
-    //     value: 90,
-    //     color: 'primary'
-    // },
-    // {
-    //     date: new Date("2021-07-20").getTime(),
-    //     value: 100,
-    //     color: 'primary'
-    // },
-    // {
-    //     date: new Date("2021-08-20").getTime(),
-    //     value: 110,
-    //     color: 'primary'
-    // },
 ]
 
 
@@ -126,7 +108,12 @@ const TravelsHistory = ({ navigation }: HomeNavigationProps<"TravelsHistory">) =
                         <Text color='primary'> Всё время </Text>
                     </Box>
                 </Box>
-                <Graph data={data} />
+                <Graph data={data} minDate={minDate} maxDate={maxDate}/>
+                <ScrollView>
+                    {data.map(travel => (
+                        <Travel key={travel.id} travel={travel} />
+                    ))}
+                </ScrollView>
             </Box>
         </Box>
     )

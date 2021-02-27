@@ -64,6 +64,11 @@ export const theme = ({
             fontFamily: "SFProText-SemiBold",
             color: "secondary"
         },
+        title3: {
+            fontSize: 16,
+            fontFamily: "SFProText-SemiBold",
+            color: "secondary"
+        },
         body: {
             fontSize: 16,
             lineHeight: 24,
