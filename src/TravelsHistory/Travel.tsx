@@ -10,20 +10,20 @@ interface TravelProps {
 const Travel = ({travel}: TravelProps) => {
     const timeResult = splitTime(travel.value)
     return (
-        <Box>
+        <Box marginTop='xl' flexDirection="row" justifyContent="space-between" alignItems="center">
             <Box>
-                <Box>
-                    <Box backgroundColor={travel.color}
+                <Box flexDirection="row" alignItems="center" marginBottom="s">
+                    <Box marginRight='s' backgroundColor={travel.color}
                         style={{ width: 10, height: 10, borderRadius: 5 }}
                     />
                     <Text variant="title3">{`#${travel.id}`}</Text>
                 </Box>
-                <Text>
+                <Text color='darkGrey'>
                     {`${timeResult.Days} дней ${timeResult.Hours} часов ${timeResult.Minutes} минут- ${new Date(travel.date).toLocaleDateString()}`}
                 </Text>
             </Box>
             <Box>
-                <Text color='secondary'> Подробнее </Text>
+                <Text color='secondary' variant="button"> Подробнее </Text>
             </Box>
         </Box>
     )

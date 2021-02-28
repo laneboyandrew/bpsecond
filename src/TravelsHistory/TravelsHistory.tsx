@@ -5,82 +5,39 @@ import {Box, Header, Text} from "../components";
 import Graph, {DataPoint} from "./Graph/Graph"
 import {ScrollView} from "react-native";
 import Travel from './Travel';
-const minDate = new Date("2020-01-01").getTime();
-const maxDate = new Date("2021-12-30").getTime();
+const startDate = new Date("2020-01-01").getTime();
+const numberOfMonths = 12;
 
-
+//TODO: на сервере необходимо будет суммировать
+// количество часов по каждому месяцу и  отдавать
+// для графика единым значением иначе будет несколько
+// разных штрихов на одном месяце То есть количество часов
+// каждого нового путешествия прибавляется к пердыдущим путешествия в этом месяце
+// Или свыводится сумма всех путешествий за месяц они все равно необходиы для истории
 const data: DataPoint[] = [
     {
-        date: new Date("2020-09-20").getTime(),
-        value: 0,
-        color: 'january',
-        id: 0
-    },
-    {
-        date: new Date("2020-10-20").getTime(),
-        value: 0,
-        color: 'february',
-        id: 0
-    },
-    {
-        date: new Date("2020-11-20").getTime(),
-        value: 0,
-        color: 'march',
-        id: 0
-    },
-    {
-        date: new Date("2020-12-20").getTime(),
-        value: 0,
-        color: 'april',
-        id: 0
-    },
-    {
         date: new Date("2021-01-20").getTime(),
-        value: 0,
-        color: 'may',
-        id: 0
-    },
-    {
-        date: new Date("2021-02-20").getTime(),
-        value: 0,
-        color: 'june',
-        id: 0
-    },
-    {
-        date: new Date("2021-03-20").getTime(),
-        value: 0,
-        color: 'july',
-        id: 0
-    },
-    {
-        date: new Date("2021-04-20").getTime(),
-        value: 0,
-        color: 'august',
-        id: 0
-    },
-    {
-        date: new Date("2021-05-20").getTime(),
-        value: 0,
-        color: 'september',
-        id: 0
-    },
-    {
-        date: new Date("2021-06-20").getTime(),
-        value: 0,
-        color: 'october',
-        id: 0
-    },
-    {
-        date: new Date("2021-07-20").getTime(),
-        value: 0,
-        color: 'november',
-        id: 0
-    },
-    {
-        date: new Date("2021-08-20").getTime(),
         value: 114,
-        color: 'december',
+        color: 'january',
         id: 1
+    },
+    {
+        date: new Date("2021-02-05").getTime(),
+        value: 100,
+        color: 'february',
+        id: 2
+    },
+    {
+        date: new Date("2021-03-08").getTime(),
+        value: 501.3,
+        color: 'march',
+        id: 3
+    },
+    {
+        date: new Date("2021-11-08").getTime(),
+        value: 300,
+        color: 'november',
+        id: 4
     },
 ]
 
@@ -93,7 +50,7 @@ const TravelsHistory = ({ navigation }: HomeNavigationProps<"TravelsHistory">) =
                     right={{ icon: 'share', onPress: () => true }}
                     dark={false}
             />
-            <Box padding='m'>
+            <Box padding='s' flex={1}>
                 <Box flexDirection="row" justifyContent="space-between" alignItems='flex-end'>
                     <Box>
                         <Text variant="header" color="secondary" opacity={0.3}>
@@ -108,7 +65,7 @@ const TravelsHistory = ({ navigation }: HomeNavigationProps<"TravelsHistory">) =
                         <Text color='primary'> Всё время </Text>
                     </Box>
                 </Box>
-                <Graph data={data} minDate={minDate} maxDate={maxDate}/>
+                <Graph data={data} startDate={startDate} numberOfMonths={numberOfMonths}/>
                 <ScrollView>
                     {data.map(travel => (
                         <Travel key={travel.id} travel={travel} />

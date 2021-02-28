@@ -2,19 +2,22 @@ import React from 'react';
 import {Box, Text, useTheme} from "../../components";
 import {StyleSheet} from "react-native";
 import {lerp} from "./Scale";
+import moment from "moment";
 
 interface UnderlayProps {
-    dates: number[];
     minY: number;
     maxY: number;
+    startDate: number;
+    numberOfMonths: number;
     step: number;
 }
 
 export const MARGIN = 'xl'
 const ROW_HEIGHT = 16;
 const formatter = Intl.DateTimeFormat("ru", {month: '2-digit'})
-const Underlay = ({dates, minY, maxY, step}: UnderlayProps) => {
+const Underlay = ({ minY, maxY, step, startDate, numberOfMonths}: UnderlayProps) => {
     const theme = useTheme();
+    const minDate = moment(startDate);
     return (
         <Box style={StyleSheet.absoluteFill}>
             <Box flex={1} justifyContent="space-between">
@@ -31,7 +34,7 @@ const Underlay = ({dates, minY, maxY, step}: UnderlayProps) => {
                                 }}>
                                 <Box width={theme.spacing[MARGIN]} paddingRight='s'>
                                     <Text color="darkGrey" textAlign="right">
-                                        {Math.round(lerp(minY, maxY, t))}
+                                        {Math.round(lerp(0, maxY, t))}
                                     </Text>
                                 </Box>
                                 <Box flex={1} height={1} backgroundColor='grey'></Box>
@@ -42,10 +45,13 @@ const Underlay = ({dates, minY, maxY, step}: UnderlayProps) => {
             </Box>
             <Box marginLeft={MARGIN} height={theme.spacing[MARGIN]} flexDirection='row' alignItems='center'>
                 {
-                    dates.map((date, index) => (
-                        <Box width={step}>
-                            <Text key={index} color='darkGrey' textAlign='center'>
-                                {formatter.format(new Date(date))}
+                    new Array(numberOfMonths)
+                        .fill(0)
+                        .map((_, i) => minDate.clone().add(i, "month"))
+                        .map((date, index) => (
+                        <Box width={step} key={index}>
+                            <Text color='darkGrey' textAlign='center'>
+                                {date.format("MM")}
                             </Text>
                         </Box>
                     ))
