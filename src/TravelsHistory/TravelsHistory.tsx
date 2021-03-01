@@ -63,7 +63,6 @@ const data: DataPoint[] = [
 
 const TravelsHistory = ({navigation}: HomeNavigationProps<"TravelsHistory">) => {
     const styles = useStyles();
-    const theme = useTheme();
     return (
         <Box flex={1} backgroundColor='background'>
             <Header title='История путешествий'
