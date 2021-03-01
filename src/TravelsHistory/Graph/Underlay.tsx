@@ -14,7 +14,6 @@ interface UnderlayProps {
 
 export const MARGIN = 'xl'
 const ROW_HEIGHT = 16;
-const formatter = Intl.DateTimeFormat("ru", {month: '2-digit'})
 const Underlay = ({ minY, maxY, step, startDate, numberOfMonths}: UnderlayProps) => {
     const theme = useTheme();
     const minDate = moment(startDate);

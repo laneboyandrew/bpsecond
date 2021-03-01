@@ -1,11 +1,11 @@
 import React from "react";
 import {Dimensions, Image, StyleSheet} from "react-native";
-import {Box, Header, RoundedIcon, RoundedIconButton, Text} from "../../components";
+import {Box, Header, RoundedIcon, RoundedIconButton, Text, useTheme} from "../../components";
 import DrawerItem, {DrawerItemProps} from "./DrawerItem";
 import {theme} from "../../components/Theme";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 
-import {DrawerActions, useNavigation } from "@react-navigation/native";
+import {CommonActions, DrawerActions, useNavigation } from "@react-navigation/native";
 
 
 
@@ -47,7 +47,13 @@ const items = [
     {
         icon: "log-out",
         label: "Logout",
-        screen: "Logout",
+        onPress: (navigation) => navigation.dispatch(CommonActions.reset({
+            index: 0,
+            routes: [
+                { name: 'Authentication' }
+
+            ]
+        })),
         color: "secondary"
     },
 ];
@@ -57,12 +63,12 @@ interface DrawerProps {
 }
 
 const DrawerContent = () => {
-
+    const theme = useTheme();
     const navigation = useNavigation();
     return (
         <Box flex={1}>
             <Box flex={0.2}
-                 backgroundColor="white"
+                 backgroundColor="background"
             >
                 <Box
                     position="absolute"
@@ -89,7 +95,7 @@ const DrawerContent = () => {
                         left={0}
                         right={0}
                         bottom={0}
-                        backgroundColor='white'
+                        backgroundColor='background'
                         borderTopLeftRadius="xl"
                         justifyContent='center'
                         padding='s'

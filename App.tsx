@@ -2,8 +2,7 @@ import 'react-native-gesture-handler';
 import * as React from 'react';
 import {assets as authenticationAssets, AuthenticationNavigator} from "./src/Authentication";
 import {LoadAssets} from "./src/components";
-import { theme } from "./src/components/Theme"
-import { ThemeProvider } from "@shopify/restyle";
+import { ThemeProvider } from "./src/components/Theme"
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import {createStackNavigator} from "@react-navigation/stack";
 import {HomeNavigator} from "./src/Home";
@@ -25,7 +24,7 @@ const fonts = {
 
 export default function App() {
   return (
-      <ThemeProvider {...{ theme }}>
+      <ThemeProvider>
       <LoadAssets{ ...{ fonts, assets}}>
           <SafeAreaProvider>
               <AppStack.Navigator headerMode="none">

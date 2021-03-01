@@ -37,7 +37,7 @@ const Picture = ({
                 {selected && (
                     <RoundedIcon
                         backgroundColor="primary"
-                        color="white"
+                        color="background"
                         size={24} name="check"
                     />
                 )}

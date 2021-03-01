@@ -27,7 +27,7 @@ const Button = ({variant, label, onPress}: ButtonProps) => {
     // TODO: Make switch/case if one more variant.
     //Если вариант кнопки главный то фон главный если прозрачный прозрачный в другом случае серый
     const backgroundColor = variant === "primary" ? theme.colors.primary : variant === "vkontakte" ? "#597da3" : theme.colors.grey;
-    const color = variant === "primary" || variant === 'vkontakte' ? theme.colors.white : theme.colors.secondary;
+    const color = variant === "primary" || variant === 'vkontakte' ? theme.colors.background : theme.colors.secondary;
     return (
         <RectButton style={[styles.container, {backgroundColor}]} {...{onPress}}>
                 <Text variant="button" style={{color}}>

@@ -35,7 +35,7 @@ const TextInput = forwardRef<RNTextInput, TextInputProps>(({icon, touched, error
                         iconRatio={0.7}
                         name={!error ? "check" : "x"}
                         size={20}
-                        color='white'
+                        color='background'
                         backgroundColor={!error ? 'primary' : 'danger'}
                     />
                 )

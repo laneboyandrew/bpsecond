@@ -11,7 +11,7 @@ interface CloseButtonProps {
 const CloseButton = ({onPress}: CloseButtonProps) => {
     return (
         <RectButton {...{ onPress }}>
-            <Box style={{height: SIZE, width: SIZE, borderRadius: SIZE/2}} backgroundColor='white'
+            <Box style={{height: SIZE, width: SIZE, borderRadius: SIZE/2}} backgroundColor='background'
                  justifyContent="center" alignItems="center">
                 <Text color='secondary'>
                     <Icon name='x' size={45}/>

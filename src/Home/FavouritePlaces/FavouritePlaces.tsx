@@ -76,7 +76,8 @@ const FavouritePlaces = ({navigation}: HomeNavigationProps<"FavouritePlaces">) =
 
     const transition = (
         <Transition.Together>
-            <Transition.Change interpolation='easeInOut' durationMs={1000}/>
+            <Transition.Out type='fade' />
+            <Transition.In type='fade' />
         </Transition.Together>
     );
 
@@ -88,7 +89,7 @@ const FavouritePlaces = ({navigation}: HomeNavigationProps<"FavouritePlaces">) =
     const [pictures, setPictures] = useState(defaultPictures);
 
     return (
-        <Box flex={1} backgroundColor="white">
+        <Box flex={1} backgroundColor="background">
             <Header
                 title="Избранные места"
                 left={{icon: 'menu', onPress: () => navigation.openDrawer()}}
@@ -104,12 +105,13 @@ const FavouritePlaces = ({navigation}: HomeNavigationProps<"FavouritePlaces">) =
                     <Transitioning.View ref={list} transition={transition}>
                         <Box flexDirection='row'>
                             <Box marginRight='s'>
-                                {pictures.filter(({id}) => id % 2 !== 0).map((picture) => <Picture key={picture.id}
+                                {pictures
+                                    .filter((_, i) => i % 2 !== 0).map((picture) => <Picture key={picture.id}
                                                                                                    picture={picture}
                                                                                                    width={width}/>)}
                             </Box>
                             <Box>
-                                {pictures.filter(({id}) => id % 2 === 0).map((picture) => <Picture key={picture.id}
+                                {pictures.filter((_, i) => i % 2 === 0).map((picture) => <Picture key={picture.id}
                                                                                                    picture={picture}
                                                                                                    width={width}/>)}
                             </Box>
