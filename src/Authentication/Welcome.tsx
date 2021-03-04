@@ -1,6 +1,6 @@
 import React from "react";
 import {Dimensions, Image} from "react-native";
-import {Box, Text, useTheme} from "../components";
+import {Box, Text} from "../components";
 import Button from "../components/Button";
 import {AuthNavigationProps} from "../components/Navigation";
 
@@ -22,7 +22,7 @@ const Welcome = ({navigation}: AuthNavigationProps<"Welcome">) => {
                        }}/>
             </Box>
             <Box flex={1} borderTopLeftRadius="xl">
-                <Box backgroundColor="grey" position="absolute" top={0} left={0} right={0} bottom={0} />
+                <Box backgroundColor="background2" position="absolute" top={0} left={0} right={0} bottom={0} />
                 <Box backgroundColor="background" borderTopLeftRadius="xl" justifyContent="space-evenly" alignItems="center" flex={1} padding="xl">
                     <Text variant="title2">
                     Давайте начнём
@@ -32,7 +32,7 @@ const Welcome = ({navigation}: AuthNavigationProps<"Welcome">) => {
                     </Text>
                     <Button variant="primary" label="Уже зарегистрированы? Войти" onPress={() => navigation.navigate('Login')}/>
                     <Button variant="default" label="Зарегистрироваться" onPress={() => navigation.navigate('SignUp')}/>
-                    <Button variant="vkontakte" label="Войти с помощью ВКонтакте" />
+                    <Button variant="vkontakte" label="Войти с помощью ВКонтакте" onPress={() => alert('Здесь будет возможность войти через ВК')}/>
                 </Box>
             </Box>
         </Box>

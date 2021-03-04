@@ -66,7 +66,7 @@ const defaultPictures = [
     },
     {
         id: 10,
-        color: "grey",
+        color: "background2",
         aspectRatio: 1,
         selected: false,
     },

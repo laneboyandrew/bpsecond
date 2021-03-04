@@ -18,31 +18,31 @@ const items = [
         icon: "zap",
         label: "BeautifulPlacesCards",
         screen: "BeautifulPlacesCards",
-        color: "primary"
+        color: "drawer1"
     },
     {
         icon: "heart",
         label: "Favourites",
         screen: "FavouritePlaces",
-        color: "orange"
+        color: "drawer2"
     },
     {
         icon: "user",
         label: "Edit",
         screen: "EditPage",
-        color: "yellow"
+        color: "drawer3"
     },
     {
         icon: "clock",
         label: "История путешествий",
         screen: "TravelsHistory",
-        color: "pink"
+        color: "drawer4"
     },
     {
         icon: "settings",
         label: "Settings",
         screen: "NotSettings",
-        color: "violet"
+        color: "drawer5"
     },
     {
         icon: "log-out",
@@ -54,7 +54,7 @@ const items = [
 
             ]
         })),
-        color: "secondary"
+        color: "drawer7"
     },
 ];
 

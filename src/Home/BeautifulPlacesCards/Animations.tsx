@@ -1,5 +1,4 @@
 import {useClock} from "react-native-redash/lib/module/v1"
-import {useState} from "react";
 import Animated, {add, block, call, cond, eq, set, spring, startClock, stopClock, useValue} from "react-native-reanimated";
 import {State} from "react-native-gesture-handler";
 import {snapPoint} from "react-native-redash";

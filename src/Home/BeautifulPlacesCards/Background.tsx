@@ -1,6 +1,7 @@
 import React from "react";
 import {Box, useTheme} from "../../components";
 import {Image, StyleSheet, View} from "react-native";
+import {palette} from "../../components/Theme";
 
 interface BackgroundProps {
     footerHeight: number;
@@ -9,7 +10,7 @@ const Background = ({}: BackgroundProps) => {
     const theme = useTheme();
     return (
         <View style={StyleSheet.absoluteFill}>
-            <Box flex={1 / 3} backgroundColor='lightBlue' top={25}>
+            <Box flex={1 / 3} style={{ backgroundColor: palette.lightBlue }}  top={25}>
                 <Box flex={1} backgroundColor='background' borderBottomRightRadius='xl'/>
             </Box>
             <Box flex={1 / 3}>

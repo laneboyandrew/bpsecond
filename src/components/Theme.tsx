@@ -4,25 +4,31 @@ import {ImageStyle, TextStyle, ViewStyle} from "react-native";
 import {useTheme as useReTheme, ThemeProvider as ReStyleThemeProvider} from '@shopify/restyle';
 
 export const palette = {
-    white: "white"
+    white: "white",
+    orange: "orange",
+    green: "#2CB9B0",
+    yellow: "#EBE538",
+    lightBlue: "#BFEAF5",
+    pink: 'pink',
+    violet: 'violet',
+    black: 'black'
 }
 const theme = ({
     colors: {
-        primary: "#2CB9B0",
+        primary: palette.green,
         secondary: "#0C0D34",
         danger: "#FF0058",
         text: "rgba(12, 13, 52, 0.7)",
         background: palette.white,
-        grey: "rgba(12, 13, 52, 0.05)",
+        background2: "rgba(12, 13, 52, 0.05)",
         "slide.grey": "#F4F0EF",
-        darkGrey: "#8A8D90",
+        info: "#8A8D90",
         primaryLight: "#E7F9F7",
-        orange: "orange",
-        pink: "pink",
-        yellow: "yellow",
-        violet: "violet",
-        lightGrey: "#FAFAFA",
-        lightBlue: "#BFEAF5",
+        orange: palette.orange,
+        pink: palette.pink,
+        yellow: palette.yellow,
+        violet: palette.violet,
+        lightBlue: palette.lightBlue,
         lightSeaGreen: "#20B2AA",
         january: "#5492B3",
         february: "#062CB3",
@@ -35,7 +41,14 @@ const theme = ({
         september: '#4DBD00',
         october: '#BD8709',
         november: '#E06812',
-        december: '#6765BD'
+        december: '#6765BD',
+        drawer1: palette.green,
+        drawer2: palette.violet,
+        drawer3: palette.orange,
+        drawer4: palette.pink,
+        drawer5: palette.yellow,
+        drawer6: palette.lightBlue,
+        drawer7: palette.black
     },
     spacing: {
         s: 8,
@@ -54,7 +67,7 @@ const theme = ({
             fontSize: 80,
             lineHeight: 80,
             fontFamily: "SFProText-Bold",
-            color: "background",
+            color: "white",
             textAlign: "center"
         },
         title1: {
@@ -91,7 +104,10 @@ const theme = ({
             color: "secondary"
         }
     },
-    breakpoints: {}
+    breakpoints: {
+        phone: 0,
+        tablet: 768
+    }
 
 });
 

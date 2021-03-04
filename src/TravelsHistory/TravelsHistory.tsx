@@ -3,7 +3,7 @@ import React from "react";
 import {HomeNavigationProps} from "../components/Navigation";
 import {Box, Header, makeStyles, Text, useTheme} from "../components";
 import Graph, {DataPoint} from "./Graph/Graph"
-import {ScrollView, Image, StyleSheet, Dimensions, PixelRatio} from "react-native";
+import {ScrollView, Image, StyleSheet, Dimensions} from "react-native";
 import Travel from './Travel';
 import {Theme} from "../components/Theme";
 import TopCurve from "./TopCurve";

@@ -77,7 +77,6 @@ const Login = ({navigation}: AuthNavigationProps<"Login">) => {
                            autoCapitalize="none"
                            returnKeyType="go"
                            returnKeyLabel="go"
-                           onSubmitEditing={() => handleSubmit()}
                            autoCorrect={false}
 
 

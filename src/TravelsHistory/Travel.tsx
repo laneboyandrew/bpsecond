@@ -20,7 +20,7 @@ const Travel = ({travel}: TravelProps) => {
                     />
                     <Text variant="title3">{`#${travel.id}`}</Text>
                 </Box>
-                <Text color='darkGrey'>
+                <Text color='info'>
                     {`${timeResult.Days} дней ${timeResult.Hours} часов ${timeResult.Minutes} минут -
                      ${moment(travel.date).format("DD MMMM YYYY") }`}
                 </Text>

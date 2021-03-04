@@ -4,7 +4,7 @@ import TextInput from "../components/Form/TextInput";
 import { useFormik} from 'formik';
 import * as Yup from 'yup';
 import Footer from "./components/Footer";
-import {AuthenticationRoutes, AuthNavigationProps, StackNavigationProps} from "../components/Navigation";
+import {AuthNavigationProps} from "../components/Navigation";
 
 const SignUpSchema = Yup.object().shape({
     email: Yup.string().email('Invalid email').required('Required'),
