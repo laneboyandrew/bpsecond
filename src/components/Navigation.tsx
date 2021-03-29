@@ -34,4 +34,5 @@ export type HomeRoutes = {
     BeautifulPlacesCards: undefined;
     FavouritePlaces: undefined;
     TravelsHistory: undefined;
+    EditProfile: undefined;
 }

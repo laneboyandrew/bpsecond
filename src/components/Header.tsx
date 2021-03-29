@@ -1,6 +1,7 @@
 import React from 'react'
 import {Box, RoundedIconButton, Text} from "./index";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
+import {View} from "react-native";
 
 interface HeaderProps {
     left: {
@@ -8,7 +9,7 @@ interface HeaderProps {
         onPress: () => void;
     }
     title: string;
-    right: {
+    right?: {
         icon: string;
         onPress: () => void;
     }
@@ -34,15 +35,19 @@ const Header = ({title, left, right, dark}: HeaderProps) => {
 
                 {...{color, backgroundColor}}
             />
-            <Text variant='header' { ...{color} }> {title.toUpperCase()} </Text>
-            <RoundedIconButton
-                size={44}
-                iconRatio={0.5}
-                name={right.icon}
-                onPress={right.onPress}
-                align={backgroundColor === undefined ? "flex-end" : "center"}
-                {...{color, backgroundColor}}
-            />
+            <Text variant='header' {...{color}}> {title.toUpperCase()} </Text>
+            {right ? (
+                <RoundedIconButton
+                    size={44}
+                    iconRatio={0.5}
+                    name={right.icon}
+                    onPress={right.onPress}
+                    align={backgroundColor === undefined ? "flex-end" : "center"}
+                    {...{color, backgroundColor}}
+                />
+            ) : (
+                <View style={{ width: 44 }}/>
+            )}
         </Box>
     )
 };

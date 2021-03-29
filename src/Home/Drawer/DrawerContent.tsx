@@ -28,8 +28,8 @@ const items = [
     },
     {
         icon: "user",
-        label: "Edit",
-        screen: "EditPage",
+        label: "Профиль",
+        screen: "EditProfile",
         color: "drawer3"
     },
     {
@@ -78,7 +78,7 @@ const DrawerContent = () => {
                     bottom={0}
                     borderBottomRightRadius='xl'
                     backgroundColor='secondary'
-                />
+                >
                 <Header
                     title='Профиль'
                     left={{ icon: 'x', onPress: () => navigation.dispatch(DrawerActions.closeDrawer) }}
@@ -86,6 +86,7 @@ const DrawerContent = () => {
                     dark
                 />
 
+            </Box>
             </Box>
             <Box flex={0.8}>
                 <Box flex={1} backgroundColor='secondary' />
