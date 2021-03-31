@@ -4,7 +4,7 @@ import {RectButton} from "react-native-gesture-handler";
 import {Dimensions, View} from "react-native";
 import {useTransition} from "react-native-redash/lib/module/v1";
 import {useTheme} from "@shopify/restyle";
-import Animated from "react-native-reanimated";
+import Animated, {multiply} from "react-native-reanimated";
 import {mix} from "react-native-redash";
 
 const {width} = Dimensions.get("window");
@@ -19,7 +19,7 @@ interface TabsProps {
     children: ReactNode;
 }
 
-const Tabs = ({ tabs, children }: TabsProps) => {
+const Tabs = ({tabs, children}: TabsProps) => {
     const theme = useTheme();
     const [index, setIndex] = useState(0);
     const transition = useTransition(index);
@@ -55,9 +55,20 @@ const Tabs = ({ tabs, children }: TabsProps) => {
                     style={{borderRadius: 5}}
                 />
             </Box>
-            <Animated.View style={{ width: width * tabs.length, flexDirection: "row" }}>
-                {Children.map(children, (child, index) => (
-                    <Box flex={1} key={index} width={width}>{child}</Box>
+            <Animated.View style={{
+                flex: 1,
+                width: width * tabs.length,
+                flexDirection: "row",
+                transform: [{translateX: multiply(-width, transition)}]
+            }}
+            >
+                {Children.map(children, (child, i) => (
+                    <Box
+                        flex={1}
+                        key={i}
+                        width={width}>
+                        {child}
+                    </Box>
                 ))}
             </Animated.View>
         </Box>
