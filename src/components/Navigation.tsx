@@ -31,6 +31,7 @@ export type AuthenticationRoutes = {
 }
 
 export type HomeRoutes = {
+    Map: undefined;
     BeautifulPlacesCards: undefined;
     FavouritePlaces: undefined;
     TravelsHistory: undefined;

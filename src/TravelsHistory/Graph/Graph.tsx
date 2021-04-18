@@ -17,6 +17,7 @@ const AnimatedBox = Animated.createAnimatedComponent(Box);
 
 export interface DataPoint {
     date: number;
+    month: string;
     value: number;
     color: keyof Theme["colors"]
     id: number;

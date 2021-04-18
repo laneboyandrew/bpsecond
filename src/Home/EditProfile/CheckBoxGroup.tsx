@@ -2,14 +2,14 @@ import React, {useState} from 'react'
 import {Box, Button} from "../../components";
 
 interface CheckBoxGroupProps {
-    options: { value: string; label: string; }[];
+    options: { value: string; label: string; color: string; }[];
 }
 
 const CheckBoxGroup = ({ options }: CheckBoxGroupProps) => {
     const [selectedValues, setSelectedValues] = useState<string[]>([]);
     return (
         <Box flexDirection="row" flexWrap="wrap" marginTop="s">
-            {options.map(({label, value}) => {
+            {options.map(({label, value, color}) => {
                 const index = selectedValues.indexOf(value);
                 const isSelected = index !== -1;
                 return(
@@ -29,7 +29,7 @@ const CheckBoxGroup = ({ options }: CheckBoxGroupProps) => {
                             }
                         }
                         label={label}
-                        style={{ width: "auto", height: "auto", padding: 20, marginBottom: 4, marginRight: 4 }}
+                        style={{ width: "auto", height: "auto", padding: 20, marginBottom: 4, marginRight: 4, backgroundColor: color }}
                     />
                 )
             })}

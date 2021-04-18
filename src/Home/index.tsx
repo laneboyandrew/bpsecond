@@ -6,6 +6,7 @@ import DrawerContent, {DRAWER_WIDTH} from "./Drawer/DrawerContent";
 import FavouritePlaces from "./FavouritePlaces";
 import EditProfile from "./EditProfile"
 import TravelsHistory from "../TravelsHistory/TravelsHistory";
+import Map from "../Home/Map/Map"
 
 
 
@@ -16,6 +17,7 @@ export const HomeNavigator = () => (
                       drawerStyle={{
                           width: DRAWER_WIDTH,
                       }}>
+        <Drawer.Screen name="Map" component={Map}/>
         <Drawer.Screen name="BeautifulPlacesCards" component={BeautifulPlacesCards}/>
         <Drawer.Screen name="FavouritePlaces" component={FavouritePlaces} />
         <Drawer.Screen name="TravelsHistory" component={TravelsHistory} />

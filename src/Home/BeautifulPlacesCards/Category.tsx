@@ -1,7 +1,9 @@
+import {Feather as Icon} from "@expo/vector-icons";
 import React, {useState} from "react";
 import {View, StyleSheet} from "react-native";
 import {Box, Text} from "../../components";
 import BorderlessTap from "../../components/BorderlessTap";
+
 const INNER_RADIUS = 30;
 const OUTER_RADIUS = 34;
 
@@ -26,7 +28,7 @@ const Category = ({
                     justifyContent='center'
                     alignItems='center'
                 >
-                    { selected && (
+                    {selected && (
                         <View style={{
                             ...StyleSheet.absoluteFillObject,
                             borderRadius: OUTER_RADIUS,
@@ -41,7 +43,17 @@ const Category = ({
                         borderRadius: INNER_RADIUS,
                         backgroundColor
                     }}
-                    />
+                    >
+                        {selected && (
+                            <Icon color='white' size={30} name="check" style={{
+                                position: "absolute",
+                                marginTop: '30%',
+                                marginLeft: '27%',
+
+                            }}/>
+                        )
+                        }
+                    </View>
                 </Box>
                 <Text textAlign="center" marginTop="s">
                     {title}

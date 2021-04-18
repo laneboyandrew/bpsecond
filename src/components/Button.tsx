@@ -1,8 +1,7 @@
 import React, {ReactNode} from "react";
 import {RectButton, RectButtonProperties} from "react-native-gesture-handler";
 import {Text, StyleSheet} from "react-native";
-import {useTheme} from "@shopify/restyle";
-import {Theme} from "./Theme";
+import {useTheme} from "./Theme";
 
 const styles = StyleSheet.create({
     container: {
@@ -24,7 +23,7 @@ interface ButtonProps {
 
 
 const Button = ({variant, label, onPress, style}: ButtonProps) => {
-    const theme = useTheme<Theme>();
+    const theme = useTheme();
     // TODO: Make switch/case if one more variant.
     //Если вариант кнопки главный то фон главный если прозрачный прозрачный в другом случае серый
     const backgroundColor = variant === "primary" ? theme.colors.primary : variant === "vkontakte" ? "#597da3" : theme.colors.background2;

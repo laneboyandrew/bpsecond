@@ -8,21 +8,31 @@ import {Box, Header} from "../../components";
 
 import {Dimensions, PixelRatio} from "react-native";
 
+// const getArticlesFromApi = async () => {
+//     try {
+//         let response = await fetch(
+//             'http://beautiful-places.ru/api/places'
+//         );
+//         let json = await response.json();
+//         return json.movies;
+//     } catch (error) {
+//         console.error(error);
+//     }
+// };
+
 const cards = [
     {
-        index: 4,
         source: require("../../../assets/introduceImages/4.jpg")
     },
     {
-        index: 3,
+
         source: require("../../../assets/introduceImages/3.jpg")
     },
     {
-        index: 2,
+
         source: require("../../../assets/introduceImages/2.jpg")
     },
     {
-        index: 1,
         source: require("../../../assets/introduceImages/1.jpg")
     }
 ]
@@ -43,7 +53,7 @@ const BeautifulPlacesCards = ({ navigation }: HomeNavigationProps<"BeautifulPlac
                 <Background {...{footerHeight}} />
                 {/*Using without interpolate until Reanimated 2 update */}
                 {cards.map(
-                    ({index, source}) =>
+                    ({ source }, index) =>
                         currentIndex < index * step + step && (
                             <Card
                                 key={index}

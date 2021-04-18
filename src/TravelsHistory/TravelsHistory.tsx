@@ -20,9 +20,9 @@ const useStyles = makeStyles((theme: Theme) => ({
             height: undefined,
             borderTopLeftRadius: theme.borderRadii.xl
         },
-        scrollView: {
-            paddingBottom: footerHeight
-        }
+        // scrollView: {
+        //     paddingBottom: footerHeight
+        // }
     })
 );
 
@@ -35,26 +35,38 @@ const useStyles = makeStyles((theme: Theme) => ({
 // Или свыводится сумма всех путешествий за месяц они все равно необходиы для истории
 const data: DataPoint[] = [
     {
-        date: new Date("2021-01-16").getTime(),
-        value: 114,
+        date: new Date("2021-01-10").getTime(),
+        month: 'Январь',
+        value: 10,
         color: 'january',
         id: 1
     },
+    //Месяца не должны повторяться чекать на серваке
+    {
+        date: new Date("2021-01-17").getTime(),
+        month: 'Январь',
+        value: 30,
+        color: 'january',
+        id: 5
+    },
     {
         date: new Date("2021-02-05").getTime(),
-        value: 100,
+        month: 'Февраль',
+        value: 48,
         color: 'february',
         id: 2
     },
     {
         date: new Date("2021-03-08").getTime(),
-        value: 501.3,
+        month: 'Март',
+        value: 36,
         color: 'march',
         id: 3
     },
     {
         date: new Date("2021-11-08").getTime(),
-        value: 300,
+        month: 'Ноябрь',
+        value: 50,
         color: 'november',
         id: 4
     },
@@ -92,16 +104,16 @@ const TravelsHistory = ({navigation}: HomeNavigationProps<"TravelsHistory">) => 
                     ))}
                 </ScrollView>
             </Box>
-            <TopCurve {...{ footerHeight }}/>
-            <Box
-                position="absolute"
-                left={0}
-                right={0}
-                bottom={0}
-                height={footerHeight}
-            >
-                <Image style={styles.footer} source={require("../../assets/patterns/3.png")}/>
-            </Box>
+            {/*<TopCurve {...{ footerHeight }}/>*/}
+            {/*<Box*/}
+            {/*    position="absolute"*/}
+            {/*    left={0}*/}
+            {/*    right={0}*/}
+            {/*    bottom={0}*/}
+            {/*    height={footerHeight}*/}
+            {/*>*/}
+            {/*    <Image style={styles.footer} source={require("../../assets/patterns/3.png")}/>*/}
+            {/*</Box>*/}
         </Box>
     )
 }

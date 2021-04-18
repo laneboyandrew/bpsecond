@@ -78,8 +78,6 @@ const Login = ({navigation}: AuthNavigationProps<"Login">) => {
                            returnKeyType="go"
                            returnKeyLabel="go"
                            autoCorrect={false}
-
-
                 />
 
                 <Box flexDirection="row" justifyContent="space-between" marginVertical='s' alignItems='center'>

@@ -12,22 +12,27 @@ const categories = [
     },
     {
         id: 'lakes',
-        title: "Озёра",
+        title: "Водоёмы",
         color: "#FFE8E9"
     },
     {
         id: 'bitches',
-        title: "Пляжи",
+        title: "Пляж",
         color: "#FFE8E9"
     },
     {
-        id: 'canyons',
-        title: "Каньоны",
+        id: 'architecture',
+        title: "Архитектура",
         color: "#FFE8E9"
     },
     {
-        id: 'villages',
-        title: "Пещерные города",
+        id: 'forest',
+        title: "Лес",
+        color: "#FFE8E9"
+    },
+    {
+        id: 'abadoned',
+        title: "Заброшенное",
         color: "#FFE8E9"
     },
     {
@@ -36,15 +41,12 @@ const categories = [
         color: "#FFE8E9"
     },
     {
-        id: 'grottoes',
-        title: "Гроты",
+        id: 'careers',
+        title: "Карьеры",
         color: "#FFE8E9"
     },
-    {
-        id: 'archMonuments',
-        title: "Памятники архитектуры",
-        color: "#FFE8E9"
-    },
+
+
 ]
 const Categories = () => {
     return (

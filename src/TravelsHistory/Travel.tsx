@@ -18,7 +18,7 @@ const Travel = ({travel}: TravelProps) => {
                     <Box marginRight='s' backgroundColor={travel.color}
                         style={{ width: 10, height: 10, borderRadius: 5 }}
                     />
-                    <Text variant="title3">{`#${travel.id}`}</Text>
+                    <Text variant="title3">{`${travel.month}`}</Text>
                 </Box>
                 <Text color='info'>
                     {`${timeResult.Days} дней ${timeResult.Hours} часов ${timeResult.Minutes} минут -

@@ -15,6 +15,12 @@ const aspectRatio = 750 / 1125;
 const mHeight = DRAWER_WIDTH * aspectRatio;
 const items = [
     {
+        icon: "map",
+        label: "Map",
+        screen: "Map",
+        color: "drawer1"
+    },
+    {
         icon: "zap",
         label: "BeautifulPlacesCards",
         screen: "BeautifulPlacesCards",
@@ -32,12 +38,13 @@ const items = [
         screen: "EditProfile",
         color: "drawer3"
     },
-    {
+   /* {
         icon: "clock",
         label: "История путешествий",
         screen: "TravelsHistory",
         color: "drawer4"
     },
+     */
     {
         icon: "settings",
         label: "Settings",
