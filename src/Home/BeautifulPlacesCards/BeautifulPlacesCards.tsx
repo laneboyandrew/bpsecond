@@ -4,9 +4,10 @@ import Categories from "./Categories"
 import {HomeNavigationProps} from "../../components/Navigation";
 import Background from "./Background";
 import Card from "./Card";
-import {Box, Header} from "../../components";
+import {Box, Header, RoundedIconButton} from "../../components";
 
 import {Dimensions, PixelRatio} from "react-native";
+import {backgroundColor} from "@shopify/restyle";
 
 // const getArticlesFromApi = async () => {
 //     try {

@@ -11,10 +11,11 @@ export const palette = {
     lightBlue: "#BFEAF5",
     pink: 'pink',
     violet: 'violet',
-    black: 'black'
+    black: 'black',
 }
 const theme = ({
     colors: {
+        transparent: 'rgba(52, 52, 52, 0.8)',
         primary: palette.green,
         secondary: "#0C0D34",
         danger: "#FF0058",
