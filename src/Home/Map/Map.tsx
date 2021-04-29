@@ -62,6 +62,10 @@ const styles = StyleSheet.create({
         height: Dimensions.get('window').height,
     },
 });
+const initialMarker = {
+    title: 'Выберите любой маркер на карте',
+    description: 'Вам станет доступно описание места'
+}
 const Map = ({navigation}: HomeNavigationProps<"Map">) => {
     const [isLoading, setLoading] = useState(true);
     const [data, setData] = useState([]);
@@ -70,12 +74,15 @@ const Map = ({navigation}: HomeNavigationProps<"Map">) => {
     const [openSettings, setOpenSettings] = useState(false);
     const [satellite, setSatellite] = useState(false);
     const [showModalWindow, setShowModalWindow] = useState(false);
+    const [currentMarker, setCurrentMarker] = useState(initialMarker);
 
+    const onMarkerPress = (marker) => {
+        setShowModalWindow(true);
+        setCurrentMarker(marker);
+    }
     const sendDataToParent = (index) => { // the callback. Use a better name
-        console.log(index);
         setShowModalWindow(index);
     };
-    const hideModal = () => setShowModalWindow(false);
 
     useEffect(() => {
         (async () => {
@@ -126,17 +133,14 @@ const Map = ({navigation}: HomeNavigationProps<"Map">) => {
                 />
 
                 {data.map(marker => {
-
                     return (
                         <Marker
                             onPress={
-                                () => setShowModalWindow(true)
+                                () => onMarkerPress(marker)
                             }
                             coordinate={
                                 marker.coordinates
                             }
-                            title={marker.title}
-                            description={marker.description}
                         >
                             {
                                 marker.type == "mountains" ? <Image style={{height: 35, width: 35}}
@@ -161,24 +165,14 @@ const Map = ({navigation}: HomeNavigationProps<"Map">) => {
                                                                            source={require('../../../assets/images/waterfall.png')}/> :
                                                                     <View><Text> LOL </Text></View>
                             }
+
                         </Marker>
+
+
                     )
                 })}
-
-
             </MapView>
-                 <ModalWindow sendDataToParent={sendDataToParent} visible={showModalWindow}  />
-            <IconButton
-                style={{
-                    position: 'absolute',
-                    top: '5%',
-                    alignSelf: 'flex-start'
-                }}
-                icon="menu"
-                color={satellite ? Colors.white : Colors.black}
-                size={30}
-                onPress={() => navigation.openDrawer()}
-            />
+
 
             <IconButton
                 style={{
@@ -190,6 +184,19 @@ const Map = ({navigation}: HomeNavigationProps<"Map">) => {
                 color={satellite ? Colors.white : Colors.black}
                 size={30}
                 onPress={() => setSatellite((prev) => !prev)}
+            />
+            <ModalWindow sendDataToParent={sendDataToParent} visible={showModalWindow} marker={currentMarker}/>
+
+            <IconButton
+                style={{
+                    position: 'absolute',
+                    top: '5%',
+                    alignSelf: 'flex-start'
+                }}
+                icon="menu"
+                color={satellite ? Colors.white : Colors.black}
+                size={30}
+                onPress={() => navigation.openDrawer()}
             />
         </View>
     );
