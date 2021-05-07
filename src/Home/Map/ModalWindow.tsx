@@ -1,6 +1,8 @@
 import React from "react";
 import {Modal, Text, Portal, Button, Provider, IconButton, Colors} from 'react-native-paper';
-import {ScrollView, View} from "react-native";
+import {Image, ScrollView, View} from "react-native";
+import Carousel from 'react-native-snap-carousel';
+import CustomCarousel from "./CustomCarousel";
 
 interface ModalWindowProps {
     sendDataToParent: any;
@@ -17,7 +19,7 @@ const styles =
         iconButton: {
             top: '6%',
             alignSelf: 'flex-end',
-        }
+        },
     };
 
 const ModalWindow = ({sendDataToParent, visible, marker}: ModalWindowProps) => {
@@ -25,22 +27,27 @@ const ModalWindow = ({sendDataToParent, visible, marker}: ModalWindowProps) => {
         sendDataToParent(false)
     }
     return (
-                <Modal visible={visible} onDismiss={onDismiss} contentContainerStyle={styles.container}>
-                    <IconButton
-                        style={
-                            styles.iconButton
-                        }
-                        icon="close"
-                        color={Colors.black}
-                        size={30}
-                        onPress={() => onDismiss()}
-                    />
-                    <Text style={{fontStyle: "italic", fontSize: 20, alignSelf: "center", maxWidth: '75%' }}>{marker.title}</Text>
-                    <ScrollView style={{ marginTop:'7%', marginLeft:'3%', marginRight: '3%' }}>
+        <Modal visible={visible} onDismiss={onDismiss} contentContainerStyle={styles.container}>
+            <IconButton
+                style={
+                    styles.iconButton
+                }
+                icon="close"
+                color={Colors.black}
+                size={30}
+                onPress={() => onDismiss()}
+            />
+            <Text
+                style={{fontStyle: "italic", fontSize: 20, alignSelf: "center", maxWidth: '75%'}}>{marker.title}
+            </Text>
+            {console.log(marker)}
+            {/*<Image style={styles.tinyLogo} source={{ uri: 'http://beautiful-places.ru/public/images/attachments/A4YIvo8_Q9k.jpg' }} />*/}
 
-                    <Text>{marker.description}</Text>
-                    </ScrollView>
-                </Modal>
+            <CustomCarousel {...{marker}} />
+            <ScrollView style={{marginTop: '7%', marginLeft: '3%', marginRight: '3%'}}>
+                <Text>{marker.description}</Text>
+            </ScrollView>
+        </Modal>
     );
 }
 

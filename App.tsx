@@ -9,6 +9,7 @@ import {HomeNavigator} from "./src/Home";
 import {AppRoutes} from "./src/components/Navigation";
 
 const AppStack = createStackNavigator<AppRoutes >();
+
 const assets = [...authenticationAssets];
 const fonts = {
     "SFBold": require("./assets/fonts/SfBold.ttf"),
