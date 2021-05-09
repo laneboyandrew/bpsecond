@@ -133,13 +133,15 @@ const Map = ({navigation}: HomeNavigationProps<"Map">) => {
                 />
 
                 {data.map(marker => {
+                    const latitude = parseFloat(marker.coordinates.latitude)
+                    const longitude = parseFloat(marker.coordinates.longitude)
                     return (
                         <Marker
                             onPress={
                                 () => onMarkerPress(marker)
                             }
                             coordinate={
-                                marker.coordinates
+                                {latitude, longitude}
                             }
                         >
                             {
