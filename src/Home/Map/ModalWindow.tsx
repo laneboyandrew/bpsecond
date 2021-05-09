@@ -1,6 +1,6 @@
 import React from "react";
-import {Modal, Text, Portal, Button, Provider, IconButton, Colors} from 'react-native-paper';
-import {Image, ScrollView, View} from "react-native";
+import {Modal,  Portal, Button, Provider, IconButton, Colors} from 'react-native-paper';
+import {Image, Text, ScrollView, View} from "react-native";
 import Carousel from 'react-native-snap-carousel';
 import CustomCarousel from "./CustomCarousel";
 
@@ -26,6 +26,8 @@ const ModalWindow = ({sendDataToParent, visible, marker}: ModalWindowProps) => {
     const onDismiss = () => {
         sendDataToParent(false)
     }
+    const regex = /(<([^>]+)>)|(&nbsp;)|(&nbps)/ig;
+    const result = marker.description.replace(regex, '');
     return (
         <Modal visible={visible} onDismiss={onDismiss} contentContainerStyle={styles.container}>
             <IconButton
@@ -45,7 +47,7 @@ const ModalWindow = ({sendDataToParent, visible, marker}: ModalWindowProps) => {
 
             <CustomCarousel {...{marker}} />
             <ScrollView style={{marginTop: '7%', marginLeft: '3%', marginRight: '3%'}}>
-                <Text>{marker.description}</Text>
+                <Text>{result}</Text>
             </ScrollView>
         </Modal>
     );
