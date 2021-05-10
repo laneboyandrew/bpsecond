@@ -75,7 +75,9 @@ const Map = ({navigation}: HomeNavigationProps<"Map">) => {
     const [satellite, setSatellite] = useState(false);
     const [showModalWindow, setShowModalWindow] = useState(false);
     const [currentMarker, setCurrentMarker] = useState(initialMarker);
-
+    const [navigationDestination, setCurrentNavigationDestination] = useState(null);
+    const [currentUserLocation, setCurrentUserLocation] = useState(null);
+    const [navigate, setNavigate] = useState(false);
     const onMarkerPress = (marker) => {
         setShowModalWindow(true);
         setCurrentMarker(marker);
@@ -83,7 +85,11 @@ const Map = ({navigation}: HomeNavigationProps<"Map">) => {
     const sendDataToParent = (index) => { // the callback. Use a better name
         setShowModalWindow(index);
     };
-
+    const navigateToPlace = (index, coordinates) => {
+        setNavigate(index);
+        setCurrentNavigationDestination(coordinates);
+    }
+    console.log('ggggg', currentMarker)
     useEffect(() => {
         (async () => {
 
@@ -92,6 +98,8 @@ const Map = ({navigation}: HomeNavigationProps<"Map">) => {
                 setErrorMsg('Permission to access location was denied');
                 return;
             }
+            const location = await Location.getCurrentPositionAsync({})
+            setCurrentUserLocation(location);
         })();
         if (errorMsg) {
             console.log(errorMsg);
@@ -121,16 +129,16 @@ const Map = ({navigation}: HomeNavigationProps<"Map">) => {
                 }}
 
             >
-
-                <MapViewDirections
-                    origin={{latitude: 53.821992, longitude: 49.085842}}
-                    destination={{latitude: 53.416363, longitude: 50.012238}}
-                    apikey={GOOGLE_MAPS_APIKEY}
-                    language={'ru'}
-                    strokeWidth={3}
-                    strokeColor="hotpink"
-                    precision={"high"}
-                />
+                {currentUserLocation && navigate ?
+                    <MapViewDirections
+                        origin={{latitude: currentUserLocation.coords.latitude, longitude: currentUserLocation.coords.longitude}}
+                        destination={navigationDestination}
+                        apikey={GOOGLE_MAPS_APIKEY}
+                        language={'ru'}
+                        strokeWidth={3}
+                        strokeColor="hotpink"
+                        precision={"high"}
+                    /> : undefined}
 
                 {data.map(marker => {
                     const latitude = parseFloat(marker.coordinates.latitude)
@@ -187,7 +195,8 @@ const Map = ({navigation}: HomeNavigationProps<"Map">) => {
                 size={30}
                 onPress={() => setSatellite((prev) => !prev)}
             />
-            <ModalWindow sendDataToParent={sendDataToParent} visible={showModalWindow} marker={currentMarker}/>
+            <ModalWindow navigateToPlace={navigateToPlace} sendDataToParent={sendDataToParent} visible={showModalWindow}
+                         marker={currentMarker}/>
 
             <IconButton
                 style={{
