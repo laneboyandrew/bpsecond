@@ -1,67 +1,24 @@
 import React, {useEffect, useState} from 'react';
 import {
-    ActivityIndicator,
     Dimensions,
-    FlatList,
     Text,
     View,
     StyleSheet,
     Image,
-    Linking,
-    Platform
 } from 'react-native';
 import {IconButton, Colors} from 'react-native-paper';
 
-import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
+import {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
+import MapView from "react-native-map-clustering";
+
 import MapViewDirections from 'react-native-maps-directions';
 import {HomeNavigationProps} from "../../components/Navigation";
 import * as Location from "expo-location";
-import Constants from 'expo-constants'
-import IntentLauncher from 'react-native-intent-launcher'
-import {Modal, Portal, Text as PaperText, Button, Provider} from 'react-native-paper';
-
-import {Box, Header, RoundedIconButton} from "../../components";
-import TransparentHeader from "../../components/TransparentHeader";
 import ModalWindow from "./ModalWindow";
+import {StatusBar} from "expo-status-bar";
 
 const GOOGLE_MAPS_APIKEY = 'AIzaSyBljbCUNGItJWUcyTVmXbLFL4eg4i-RuTw';
-const pkg = Constants.manifest.releaseChannel
-    ? Constants.manifest.android.package
-    : 'host.exp.exponent'
 
-const openAppSettings = () => {
-    if (Platform.OS === 'ios') {
-        Linking.openURL('app-settings:')
-    } else {
-        IntentLauncher.startActivityAsync(
-            IntentLauncher.ACTION_APPLICATION_DETAILS_SETTINGS,
-            {data: 'package:' + pkg},
-        )
-    }
-}
-const coordinates = () => [
-    {
-        latitude: 37.3317876,
-        longitude: -122.0054812,
-    },
-    {
-        latitude: 37.771707,
-        longitude: -122.4053769,
-    },
-];
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    map: {
-        width: Dimensions.get('window').width,
-        height: Dimensions.get('window').height,
-    },
-});
 const initialMarker = {
     title: 'Выберите любой маркер на карте',
     description: 'Вам станет доступно описание места'
@@ -70,8 +27,6 @@ const Map = ({navigation}: HomeNavigationProps<"Map">) => {
     const [isLoading, setLoading] = useState(true);
     const [data, setData] = useState([]);
     const [errorMsg, setErrorMsg] = useState(null);
-    const [locationModalVisible, setLocationModalVisible] = useState(false);
-    const [openSettings, setOpenSettings] = useState(false);
     const [satellite, setSatellite] = useState(false);
     const [showModalWindow, setShowModalWindow] = useState(false);
     const [currentMarker, setCurrentMarker] = useState(initialMarker);
@@ -89,7 +44,6 @@ const Map = ({navigation}: HomeNavigationProps<"Map">) => {
         setNavigate(index);
         setCurrentNavigationDestination(coordinates);
     }
-    console.log('ggggg', currentMarker)
     useEffect(() => {
         (async () => {
 
@@ -104,7 +58,6 @@ const Map = ({navigation}: HomeNavigationProps<"Map">) => {
         if (errorMsg) {
             console.log(errorMsg);
         }
-
         fetch('http://beautiful-places.ru/api/places')
             .then((response) => response.json())
             .then((json) => setData(json))
@@ -114,6 +67,7 @@ const Map = ({navigation}: HomeNavigationProps<"Map">) => {
 
     return (
         <View style={{flex: 1}}>
+            {satellite ? <StatusBar style="light" /> : <StatusBar style="black" /> }
             <MapView
                 mapType={satellite ? "hybrid" : "standard"}
                 style={{flex: 1}}
@@ -127,7 +81,6 @@ const Map = ({navigation}: HomeNavigationProps<"Map">) => {
                     longitudeDelta: 3,
 
                 }}
-
             >
                 {currentUserLocation && navigate ?
                     <MapViewDirections
@@ -175,15 +128,10 @@ const Map = ({navigation}: HomeNavigationProps<"Map">) => {
                                                                            source={require('../../../assets/images/waterfall.png')}/> :
                                                                     <View><Text> LOL </Text></View>
                             }
-
                         </Marker>
-
-
                     )
                 })}
             </MapView>
-
-
             <IconButton
                 style={{
                     position: 'absolute',
@@ -197,7 +145,6 @@ const Map = ({navigation}: HomeNavigationProps<"Map">) => {
             />
             <ModalWindow navigateToPlace={navigateToPlace} sendDataToParent={sendDataToParent} visible={showModalWindow}
                          marker={currentMarker}/>
-
             <IconButton
                 style={{
                     position: 'absolute',
@@ -212,6 +159,5 @@ const Map = ({navigation}: HomeNavigationProps<"Map">) => {
         </View>
     );
 };
-
 export default Map;
 

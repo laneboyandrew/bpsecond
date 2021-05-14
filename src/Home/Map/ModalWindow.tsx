@@ -5,6 +5,7 @@ import Carousel from 'react-native-snap-carousel';
 import CustomCarousel from "./CustomCarousel";
 import {Ionicons} from "@expo/vector-icons";
 import * as Location from "expo-location";
+import {storage} from "../../../App";
 
 interface ModalWindowProps {
     navigateToPlace: any;
@@ -12,6 +13,7 @@ interface ModalWindowProps {
     visible: boolean;
     marker: any;
 }
+
 const {width, height} = Dimensions.get("window")
 const styles =
     {
@@ -26,8 +28,10 @@ const styles =
     };
 
 const ModalWindow = ({navigateToPlace, sendDataToParent, visible, marker}: ModalWindowProps) => {
+    const [favourite, setFavourite] = useState(false);
     const regex = /(<([^>]+)>)|(&nbsp;)|(&nbps)/ig;
     const result = marker.description.replace(regex, '');
+
     const onDismiss = () => {
         sendDataToParent(false)
     }
@@ -35,7 +39,25 @@ const ModalWindow = ({navigateToPlace, sendDataToParent, visible, marker}: Modal
         onDismiss();
         navigateToPlace(true, marker.coordinates);
     }
+    const onHeartPress = async () => {
+        setFavourite(prev => !prev);
+        await storage.save({
+            key: 'markers',
+            data: {
+                marker: marker
+            },
+            expires: null
+        })
+        const markersInStorage = await storage.load({
+            key: 'markers'
+        })
+        console.log('govno!', markersInStorage)
 
+        if (markersInStorage.marker.id.includes(marker.id) && favourite){
+
+        }
+    }
+    console.log('mmm', marker)
     return (
         <Modal visible={visible} onDismiss={onDismiss} contentContainerStyle={styles.container}>
             <IconButton
@@ -50,8 +72,6 @@ const ModalWindow = ({navigateToPlace, sendDataToParent, visible, marker}: Modal
             <Text
                 style={{fontStyle: "italic", fontSize: 20, alignSelf: "center", maxWidth: '75%'}}>{marker.title}
             </Text>
-            {/*<Image style={styles.tinyLogo} source={{ uri: 'http://beautiful-places.ru/public/images/attachments/A4YIvo8_Q9k.jpg' }} />*/}
-
             <CustomCarousel {...{marker}} />
             <ScrollView showsVerticalScrollIndicator={false} style={{marginTop: '3%', marginLeft: '3%', marginRight: '3%'}}>
                 <Text>{result}</Text>
@@ -59,14 +79,12 @@ const ModalWindow = ({navigateToPlace, sendDataToParent, visible, marker}: Modal
             <View style={{flexDirection: "row", justifyContent: "space-around", marginLeft: "3%", marginRight: "3%", marginBottom: "15%"}}>
                 <TouchableOpacity onPress={() => onNavigationTap()}>
                     <View style={{flexDirection: "row", alignItems: "center"}}>
-                        {/*<Text style={{fontSize: 20}}>Маршрут</Text>*/}
                         <Ionicons size={height/20} name={'navigate-circle-outline'} />
                     </View>
                 </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => onHeartPress()}>
                 <View style={{flexDirection: "row", alignItems: "center"}}>
-                    {/*<Text style={{fontSize: 20}}> В избранное</Text>*/}
-                    <Ionicons size={height/20} name={'heart'} />
+                    {favourite ? <Ionicons size={height/20} name={'heart-dislike'} /> : <Ionicons size={height/20} name={'heart'} />}
                 </View>
             </TouchableOpacity>
             </View>

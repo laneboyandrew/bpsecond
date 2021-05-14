@@ -1,39 +1,42 @@
 import React, {useState} from "react";
 import {BorderlessTap, Box, RoundedIcon} from "../../components";
-import {View} from "react-native";
+import {Text, ImageBackground} from "react-native";
 
 
 interface PictureProps {
-    picture: {
+    place: {
         id: number;
         color: string;
         aspectRatio: number;
         selected: boolean;
+        images: string;
     }
     width: number;
 }
 
 const Picture = ({
-                     picture,
+                     place,
                      width
                  }: PictureProps) => {
     const [selected, setSelected] = useState(false);
     return (
         <BorderlessTap onPress={() => {
             setSelected(prev => !prev);
-            picture.selected = !picture.selected;
+            place.selected = !place.selected;
         }}>
-            <Box
-                borderRadius="m"
-                marginBottom='m'
-                alignItems='flex-end'
-                padding='m'
-                style={{
-                    backgroundColor: picture.color,
-                    width,
-                    height: width *  picture.aspectRatio
-                }}
-            >
+            <Text>{place.description}</Text>
+            <ImageBackground style={{borderRadius: '3%', marginBottom: '3%', alignItems: 'flex-end', padding: '3%', width, height: width  * Math.floor(Math.random() * 11)}} source={{ uri: place.images }}>
+            {/*<Box*/}
+            {/*    borderRadius="m"*/}
+            {/*    marginBottom='m'*/}
+            {/*    alignItems='flex-end'*/}
+            {/*    padding='m'*/}
+            {/*    style={{*/}
+            {/*        backgroundColor: picture.color,*/}
+            {/*        width,*/}
+            {/*        height: width *  picture.aspectRatio*/}
+            {/*    }}*/}
+            {/*>*/}
                 {selected && (
                     <RoundedIcon
                         backgroundColor="primary"
@@ -41,7 +44,7 @@ const Picture = ({
                         size={24} name="check"
                     />
                 )}
-            </Box>
+            </ImageBackground>
         </BorderlessTap>
     )
 }

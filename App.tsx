@@ -7,6 +7,8 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import {createStackNavigator} from "@react-navigation/stack";
 import {HomeNavigator} from "./src/Home";
 import {AppRoutes} from "./src/components/Navigation";
+import Storage from "react-native-storage";
+import AsyncStorage from "@react-native-community/async-storage";
 
 const AppStack = createStackNavigator<AppRoutes >();
 
@@ -16,6 +18,13 @@ const fonts = {
     "SFSemibold": require("./assets/fonts/SFSemibold.ttf"),
     "SFRegular": require("./assets/fonts/SFRegular.ttf"),
 };
+
+export const storage = new Storage({
+    size: 1000,
+    storageBackend: AsyncStorage,
+    defaultExpires: null,
+    enableCache: true,
+})
 
 export default function App() {
   return (
