@@ -36,4 +36,5 @@ export type HomeRoutes = {
     FavouritePlaces: undefined;
     TravelsHistory: undefined;
     EditProfile: undefined;
+    ModalWindow: undefined;
 }

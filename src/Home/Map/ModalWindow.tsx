@@ -5,7 +5,10 @@ import Carousel from 'react-native-snap-carousel';
 import CustomCarousel from "./CustomCarousel";
 import {Ionicons} from "@expo/vector-icons";
 import * as Location from "expo-location";
-import {storage} from "../../../App";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import FavouritePlaces from "../FavouritePlaces";
+import {HomeNavigationProps} from "../../components/Navigation";
+import {useIsFocused, useNavigation} from "@react-navigation/native";
 
 interface ModalWindowProps {
     navigateToPlace: any;
@@ -27,37 +30,67 @@ const styles =
         },
     };
 
-const ModalWindow = ({navigateToPlace, sendDataToParent, visible, marker}: ModalWindowProps) => {
-    const [favourite, setFavourite] = useState(false);
+const ModalWindow = ({navigateToPlace, sendDataToParent, visible, marker }: HomeNavigationProps<"ModalWindow">) => {
+    const navgation = useNavigation();
     const regex = /(<([^>]+)>)|(&nbsp;)|(&nbps)/ig;
     const result = marker.description.replace(regex, '');
-
+    const [favKeys, setFavKeys] = useState([]);
+    const isFocused = useIsFocused();
+    useEffect(() => {
+        const getFavourites = async () => {
+            let keys = []
+            try {
+                keys = await AsyncStorage.getAllKeys()
+            } catch (e) {
+                // read key error
+            }
+            try {
+                let forDeletion = ['__react_native_storage_test', 'NAVIGATION_STATE_KEY-40.0.0'];
+                keys = keys.filter(item => !forDeletion.includes(item))
+                setFavKeys(keys)
+            } catch (e) {
+                // read error
+            }
+        }
+        getFavourites();
+    }, [isFocused])
     const onDismiss = () => {
         sendDataToParent(false)
     }
     const onNavigationTap = () => {
+        navgation.navigate('Map', {
+            destination: marker.coordinates
+        });
         onDismiss();
         navigateToPlace(true, marker.coordinates);
     }
-    const onHeartPress = async () => {
-        setFavourite(prev => !prev);
-        await storage.save({
-            key: 'markers',
-            data: {
-                marker: marker
-            },
-            expires: null
-        })
-        const markersInStorage = await storage.load({
-            key: 'markers'
-        })
-        console.log('govno!', markersInStorage)
-
-        if (markersInStorage.marker.id.includes(marker.id) && favourite){
-
-        }
+    const getFavourites = async () => {
+        let keys = []
+        keys = await AsyncStorage.getAllKeys()
+        setFavKeys(keys);
     }
-    console.log('mmm', marker)
+    const onHeartPress = async () => {
+        const jsonValue = JSON.stringify(marker)
+        try {
+            if (favKeys.includes(marker.id.toString())){
+                await AsyncStorage.removeItem(marker.id.toString())
+                await getFavourites();
+            } else {
+                await AsyncStorage.setItem(marker.id.toString(), jsonValue)
+                await getFavourites();
+            }
+        } catch (e) {
+            console.log('error in onHeartPress', e)
+        }
+        console.log('Done.')
+        //remove after test
+        try {
+            await AsyncStorage.removeItem('__react_native_storage_test')
+        } catch(e) {
+            // remove error
+        }
+        console.log('Done.')
+    }
     return (
         <Modal visible={visible} onDismiss={onDismiss} contentContainerStyle={styles.container}>
             <IconButton
@@ -83,9 +116,10 @@ const ModalWindow = ({navigateToPlace, sendDataToParent, visible, marker}: Modal
                     </View>
                 </TouchableOpacity>
             <TouchableOpacity onPress={() => onHeartPress()}>
-                <View style={{flexDirection: "row", alignItems: "center"}}>
-                    {favourite ? <Ionicons size={height/20} name={'heart-dislike'} /> : <Ionicons size={height/20} name={'heart'} />}
-                </View>
+                {marker.id ?
+                    <View style={{flexDirection: "row", alignItems: "center"}}>
+                    {favKeys.includes(marker.id.toString()) ? <Ionicons size={height/20} name={'heart-dislike'} /> : <Ionicons size={height/20} name={'heart'} />}
+                </View> : undefined}
             </TouchableOpacity>
             </View>
         </Modal>

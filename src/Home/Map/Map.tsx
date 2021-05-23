@@ -23,7 +23,7 @@ const initialMarker = {
     title: 'Выберите любой маркер на карте',
     description: 'Вам станет доступно описание места'
 }
-const Map = ({navigation}: HomeNavigationProps<"Map">) => {
+const Map = ({navigation, route}: HomeNavigationProps<"Map">) => {
     const [isLoading, setLoading] = useState(true);
     const [data, setData] = useState([]);
     const [errorMsg, setErrorMsg] = useState(null);
@@ -33,6 +33,7 @@ const Map = ({navigation}: HomeNavigationProps<"Map">) => {
     const [navigationDestination, setCurrentNavigationDestination] = useState(null);
     const [currentUserLocation, setCurrentUserLocation] = useState(null);
     const [navigate, setNavigate] = useState(false);
+    const { destination } = route.params;
     const onMarkerPress = (marker) => {
         setShowModalWindow(true);
         setCurrentMarker(marker);
@@ -44,6 +45,7 @@ const Map = ({navigation}: HomeNavigationProps<"Map">) => {
         setNavigate(index);
         setCurrentNavigationDestination(coordinates);
     }
+
     useEffect(() => {
         (async () => {
 
@@ -64,7 +66,10 @@ const Map = ({navigation}: HomeNavigationProps<"Map">) => {
             .catch((error) => console.error(error))
             .finally(() => setLoading(false));
     }, []);
-
+    console.log('DESTINATION', destination)
+    console.log('USERLOCATION', currentUserLocation)
+    console.log('NAVIGATESTATUS', navigate)
+    console.log('NAVDEST', navigationDestination)
     return (
         <View style={{flex: 1}}>
             {satellite ? <StatusBar style="light" /> : <StatusBar style="black" /> }
@@ -82,10 +87,11 @@ const Map = ({navigation}: HomeNavigationProps<"Map">) => {
 
                 }}
             >
+
                 {currentUserLocation && navigate ?
                     <MapViewDirections
                         origin={{latitude: currentUserLocation.coords.latitude, longitude: currentUserLocation.coords.longitude}}
-                        destination={navigationDestination}
+                        destination={destination}
                         apikey={GOOGLE_MAPS_APIKEY}
                         language={'ru'}
                         strokeWidth={3}

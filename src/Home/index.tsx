@@ -7,6 +7,7 @@ import FavouritePlaces from "./FavouritePlaces";
 import EditProfile from "./EditProfile"
 import TravelsHistory from "../TravelsHistory/TravelsHistory";
 import Map from "../Home/Map/Map"
+import ModalWindow from "./Map/ModalWindow";
 
 
 
@@ -22,5 +23,6 @@ export const HomeNavigator = () => (
         <Drawer.Screen name="FavouritePlaces" component={FavouritePlaces} />
         <Drawer.Screen name="TravelsHistory" component={TravelsHistory} />
         <Drawer.Screen name="EditProfile" component={EditProfile} />
+        <Drawer.Screen name="ModalWindow" component={ModalWindow} />
     </Drawer.Navigator>
 );

@@ -19,13 +19,6 @@ const fonts = {
     "SFRegular": require("./assets/fonts/SFRegular.ttf"),
 };
 
-export const storage = new Storage({
-    size: 1000,
-    storageBackend: AsyncStorage,
-    defaultExpires: null,
-    enableCache: true,
-})
-
 export default function App() {
   return (
       <ThemeProvider>
