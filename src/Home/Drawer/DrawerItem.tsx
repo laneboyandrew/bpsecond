@@ -5,7 +5,9 @@ import {RectButton} from "react-native-gesture-handler";
 import {HomeRoutes} from "../../components/Navigation";
 import {useNavigation} from "@react-navigation/native";
 import {DrawerNavigationProp} from "@react-navigation/drawer/lib/typescript/src/types";
-
+import {
+    Text as RNText,
+} from 'react-native';
 interface BaseDrawerItem {
     icon: string;
     color: keyof Theme["colors"]
@@ -35,9 +37,9 @@ const DrawerItem = ({icon, color, label, ...props}: DrawerItemProps) => {
                     name={icon}
                     size={36}
                     color="background"
-                    backgroundColor={color}
+                    backgroundColor={"transparent"}
                 />
-                <Text variant="button" color="secondary">{label}</Text>
+                <RNText style={{color: "#FFFFFF"}}>{label}</RNText>
             </Box>
         </RectButton>
     )

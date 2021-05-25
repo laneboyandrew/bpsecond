@@ -15,6 +15,8 @@ export const palette = {
 }
 const theme = ({
     colors: {
+        mainMenu: 'black',
+        mainMenu2: '#FFFFFF',
         transparent: 'rgba(52, 52, 52, 0.8)',
         primary: palette.green,
         secondary: "#0C0D34",
@@ -49,7 +51,9 @@ const theme = ({
         drawer4: palette.pink,
         drawer5: palette.yellow,
         drawer6: palette.lightBlue,
-        drawer7: palette.black
+        drawer7: palette.black,
+        newViolet: '#051345',
+        newOrange: '#fa3c01'
     },
     spacing: {
         s: 8,
@@ -68,7 +72,7 @@ const theme = ({
             fontSize: 80,
             lineHeight: 80,
             fontFamily: "SFProText-Bold",
-            color: "white",
+            color: "mainMenu2",
             textAlign: "center"
         },
         title1: {
@@ -94,9 +98,10 @@ const theme = ({
             color: "text"
         },
         button: {
-            fontSize: 15,
+            fontSize: 18,
             fontFamily: "SFProText-Medium",
-            color: "text"
+            color: "text",
+            fontFamily: 'PTSerifRegular'
         },
         header: {
             fontSize: 12,

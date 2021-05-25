@@ -2,6 +2,7 @@ import React from 'react'
 import {Box, RoundedIconButton, Text} from "./index";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {View} from "react-native";
+import {StatusBar} from "expo-status-bar";
 
 interface HeaderProps {
     left: {
@@ -21,11 +22,13 @@ const Header = ({title, left, right, dark}: HeaderProps) => {
 
     const insets = useSafeAreaInsets();
     const color = dark ? "background" : "secondary";
-    const backgroundColor = dark ? "secondary" : undefined;
+    const backgroundColor = dark ? "transparent" : undefined;
 
     return (
+
         <Box flexDirection='row' justifyContent='space-between' alignItems='center' paddingHorizontal='s'
              style={{marginTop: insets.top}}>
+
             <RoundedIconButton
                 size={44}
                 iconRatio={0.5}
@@ -33,9 +36,10 @@ const Header = ({title, left, right, dark}: HeaderProps) => {
                 onPress={left.onPress}
                 align={backgroundColor === undefined ? "flex-start" : "center"}
 
-                {...{color, backgroundColor}}
+                {...{color}}
             />
-            <Text variant='header' {...{color}}> {title.toUpperCase()} </Text>
+            {title ? <Text variant='header' {...{color}}> {title.toUpperCase()} </Text> : undefined}
+
             {right ? (
                 <RoundedIconButton
                     size={44}

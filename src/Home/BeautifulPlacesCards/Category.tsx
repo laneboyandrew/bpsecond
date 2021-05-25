@@ -21,19 +21,20 @@ const Category = ({
     const [selected, setSelected] = useState(false);
     return (
         <BorderlessTap onPress={() => setSelected((prev) => !prev)}>
-            <Box marginLeft='m' marginTop="s" alignItems='center'>
+            <Box  marginLeft='m' marginTop="s" alignItems='center'>
                 <Box
                     width={OUTER_RADIUS * 2}
                     height={OUTER_RADIUS * 2}
                     justifyContent='center'
                     alignItems='center'
+
                 >
                     {selected && (
                         <View style={{
                             ...StyleSheet.absoluteFillObject,
                             borderRadius: OUTER_RADIUS,
                             borderColor: backgroundColor,
-                            borderWidth: 1
+                            borderWidth: 1,
                         }}
                         />
                     )}

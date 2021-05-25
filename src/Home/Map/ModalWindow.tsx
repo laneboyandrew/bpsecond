@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {Modal,  Portal, Button, Provider, IconButton, Colors} from 'react-native-paper';
-import {Image, Text, ScrollView, View, TouchableOpacity, Dimensions} from "react-native";
+import {Image, Text, ScrollView, View, TouchableOpacity, Dimensions, StyleSheet} from "react-native";
 import Carousel from 'react-native-snap-carousel';
 import CustomCarousel from "./CustomCarousel";
 import {Ionicons} from "@expo/vector-icons";
@@ -22,10 +22,10 @@ const styles =
     {
         container: {
             backgroundColor: 'white',
-            height: '115%',
+            height: "115%",
         },
         iconButton: {
-            top: '6%',
+            top: height/15,
             alignSelf: 'flex-end',
         },
     };
@@ -33,7 +33,7 @@ const styles =
 const ModalWindow = ({navigateToPlace, sendDataToParent, visible, marker }: HomeNavigationProps<"ModalWindow">) => {
     const navgation = useNavigation();
     const regex = /(<([^>]+)>)|(&nbsp;)|(&nbps)/ig;
-    const result = marker.description.replace(regex, '');
+    const result = marker.description.replace(regex, ' ');
     const [favKeys, setFavKeys] = useState([]);
     const isFocused = useIsFocused();
     useEffect(() => {
@@ -103,25 +103,30 @@ const ModalWindow = ({navigateToPlace, sendDataToParent, visible, marker }: Home
                 onPress={() => onDismiss()}
             />
             <Text
-                style={{fontStyle: "italic", fontSize: 20, alignSelf: "center", maxWidth: '75%'}}>{marker.title}
+                style={{fontFamily: "PTSerifBoldItalic", fontSize: 20, alignSelf: "center", maxWidth: '70%', marginTop: '3%', textAlign: "center"}}>{marker.title}
             </Text>
+            <View style={{height: "90%"}}>
+                <ScrollView showsVerticalScrollIndicator={false} style={{ marginLeft: '3%', marginRight: '3%'}}>
             <CustomCarousel {...{marker}} />
-            <ScrollView showsVerticalScrollIndicator={false} style={{marginTop: '3%', marginLeft: '3%', marginRight: '3%'}}>
-                <Text>{result}</Text>
-            </ScrollView>
-            <View style={{flexDirection: "row", justifyContent: "space-around", marginLeft: "3%", marginRight: "3%", marginBottom: "15%"}}>
-                <TouchableOpacity onPress={() => onNavigationTap()}>
-                    <View style={{flexDirection: "row", alignItems: "center"}}>
-                        <Ionicons size={height/20} name={'navigate-circle-outline'} />
+
+                <Text style={{fontSize: 18, fontFamily: "PTSerifRegular"}}>{result}</Text>
+                    <View style={{flexDirection: "row", justifyContent: "space-around", marginLeft: "3%", marginRight: "3%", paddingBottom: "30%"}}>
+                        <TouchableOpacity onPress={() => onNavigationTap()}>
+                            <View style={{flexDirection: "row", alignItems: "center"}}>
+                                <Ionicons size={height/20} name={'navigate-circle-outline'} />
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => onHeartPress()}>
+                            {marker.id ?
+                                <View style={{flexDirection: "row", alignItems: "center"}}>
+                                    {favKeys.includes(marker.id.toString()) ? <Ionicons size={height/20} name={'heart-dislike'} /> : <Ionicons size={height/20} name={'heart'} />}
+                                </View> : undefined}
+                        </TouchableOpacity>
                     </View>
-                </TouchableOpacity>
-            <TouchableOpacity onPress={() => onHeartPress()}>
-                {marker.id ?
-                    <View style={{flexDirection: "row", alignItems: "center"}}>
-                    {favKeys.includes(marker.id.toString()) ? <Ionicons size={height/20} name={'heart-dislike'} /> : <Ionicons size={height/20} name={'heart'} />}
-                </View> : undefined}
-            </TouchableOpacity>
+            </ScrollView>
+
             </View>
+
         </Modal>
     );
 }

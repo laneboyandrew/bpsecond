@@ -9,20 +9,25 @@ import {HomeNavigator} from "./src/Home";
 import {AppRoutes} from "./src/components/Navigation";
 import Storage from "react-native-storage";
 import AsyncStorage from "@react-native-community/async-storage";
+import {useFonts} from "@use-expo/font";
 
 const AppStack = createStackNavigator<AppRoutes >();
 
 const assets = [...authenticationAssets];
-const fonts = {
-    "SFBold": require("./assets/fonts/SfBold.ttf"),
-    "SFSemibold": require("./assets/fonts/SFSemibold.ttf"),
-    "SFRegular": require("./assets/fonts/SFRegular.ttf"),
+
+
+const customFonts = {
+    PTSerifRegular: require("./assets/fonts/PTSerif-Regular.ttf"),
+    PTSerifBold: require("./assets/fonts/PTSerif-Bold.ttf"),
+    PTSerifBoldItalic: require("./assets/fonts/PTSerif-BoldItalic.ttf"),
+    PTSerifItalic: require("./assets/fonts/PTSerif-Italic.ttf"),
 };
 
 export default function App() {
-  return (
+    useFonts(customFonts);
+    return (
       <ThemeProvider>
-      <LoadAssets{ ...{ fonts, assets}}>
+      <LoadAssets{...{assets}}>
           <SafeAreaProvider>
               <AppStack.Navigator headerMode="none">
                   <AppStack.Screen name="Authentication" component={AuthenticationNavigator} />

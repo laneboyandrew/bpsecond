@@ -66,13 +66,9 @@ const Map = ({navigation, route}: HomeNavigationProps<"Map">) => {
             .catch((error) => console.error(error))
             .finally(() => setLoading(false));
     }, []);
-    console.log('DESTINATION', destination)
-    console.log('USERLOCATION', currentUserLocation)
-    console.log('NAVIGATESTATUS', navigate)
-    console.log('NAVDEST', navigationDestination)
     return (
         <View style={{flex: 1}}>
-            {satellite ? <StatusBar style="light" /> : <StatusBar style="black" /> }
+
             <MapView
                 mapType={satellite ? "hybrid" : "standard"}
                 style={{flex: 1}}
@@ -144,13 +140,14 @@ const Map = ({navigation, route}: HomeNavigationProps<"Map">) => {
                     top: '5%',
                     alignSelf: 'flex-end'
                 }}
-                icon="satellite-variant"
+                icon="layers-outline"
                 color={satellite ? Colors.white : Colors.black}
                 size={30}
                 onPress={() => setSatellite((prev) => !prev)}
             />
             <ModalWindow navigateToPlace={navigateToPlace} sendDataToParent={sendDataToParent} visible={showModalWindow}
                          marker={currentMarker}/>
+            {satellite ? <StatusBar style="light" /> : <StatusBar style="black" /> }
             <IconButton
                 style={{
                     position: 'absolute',
