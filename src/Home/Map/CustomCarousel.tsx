@@ -1,8 +1,9 @@
 import React, {useState, useCallback, useRef, useEffect} from 'react';
-import {Text, View, SafeAreaView, Image, Dimensions} from 'react-native';
+import {Text, View, SafeAreaView, Dimensions} from 'react-native';
 
 import Carousel from 'react-native-snap-carousel';
 import {all} from "@shopify/restyle";
+import {Image} from "react-native-expo-image-cache";
 
 const {width, height} = Dimensions.get("window");
 
@@ -19,7 +20,7 @@ const CustomCarousel = (marker) => {
                         padding: 50,
                         alignSelf: "center",
 
-                    }} source={{uri:item.image}}/>
+                    }} {...{uri:item.image}}/>
     ), []);
     {
         console.log("IMAGE", array[0].images)

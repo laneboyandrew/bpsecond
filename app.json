@@ -4,9 +4,9 @@
     "slug": "react-native-fashion",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/icon/icon.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/splashscreen/splashscreen.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -25,7 +25,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/icon/icon.png",
         "backgroundColor": "#FFFFFF"
       }
     },
