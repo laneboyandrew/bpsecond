@@ -45,15 +45,13 @@ const categories = [
         title: "Карьеры",
         color: "#FFE8E9"
     },
-
-
 ]
-const Categories = () => {
+const Categories = ({filterDataFromChildren}) => {
     return (
         <View style={{backgroundColor: "transparent"}}>
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                 {categories.map(category => (
-                    <Category key={category.id} category={category}/>
+                    <Category key={category.id} category={category} filterDataFromChildren={filterDataFromChildren}/>
                 ))}
             </ScrollView>
         </View>

@@ -52,7 +52,7 @@ const FavouritePlaces = ({navigation}: HomeNavigationProps<"FavouritePlaces">) =
             }
             let values
             try {
-                let forDeletion = ['__react_native_storage_test', 'NAVIGATION_STATE_KEY-40.0.0', 'markers'];
+                let forDeletion = ['__react_native_storage_test', 'NAVIGATION_STATE_KEY-40.0.0', 'markers', 'allplaces'];
                 keys = keys.filter(item => !forDeletion.includes(item))
                 values = await AsyncStorage.multiGet(keys)
                 setMarkers(values)

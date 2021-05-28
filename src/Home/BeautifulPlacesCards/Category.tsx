@@ -16,18 +16,38 @@ interface CategoryProps {
 }
 
 const Category = ({
-                      category: {color: backgroundColor, title}
+                      filterDataFromChildren,
+                      category: {color: backgroundColor, title, id}
                   }: CategoryProps) => {
-    const [selected, setSelected] = useState(false);
+    let [selected, setSelected] = useState(false);
+    let selectedCategoriesArray = [];
+
+    const buttonPress = () => {
+        if (selectedCategoriesArray.includes(id)){
+            const index = selectedCategoriesArray.indexOf(id)
+            selectedCategoriesArray.splice(index, 1)
+            console.log('deleted', selectedCategoriesArray)
+        } else {
+            selectedCategoriesArray.push(id)
+            console.log('newPushed', selectedCategoriesArray)
+        }
+        setSelected((prev) => !prev)
+        sendDataToParent()
+        console.log('gggggggggg', selectedCategoriesArray)
+    }
+    const sendDataToParent = () => {
+        filterDataFromChildren(selectedCategoriesArray)
+        console.log('selCatArr', selectedCategoriesArray)
+    }
+    console.log('finish', selectedCategoriesArray)
     return (
-        <BorderlessTap onPress={() => setSelected((prev) => !prev)}>
-            <Box  marginLeft='m' marginTop="s" alignItems='center'>
+        <BorderlessTap onPress={() => buttonPress()}>
+            <Box marginLeft='m' marginTop="s" alignItems='center'>
                 <Box
                     width={OUTER_RADIUS * 2}
                     height={OUTER_RADIUS * 2}
                     justifyContent='center'
                     alignItems='center'
-
                 >
                     {selected && (
                         <View style={{

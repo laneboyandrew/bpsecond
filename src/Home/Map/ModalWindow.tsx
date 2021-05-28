@@ -25,7 +25,7 @@ const styles =
             height: "115%",
         },
         iconButton: {
-            top: height/15,
+            top: '6.5%',
             alignSelf: 'flex-end',
         },
     };

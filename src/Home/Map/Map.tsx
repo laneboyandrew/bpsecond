@@ -34,6 +34,7 @@ const Map = ({navigation, route}: HomeNavigationProps<"Map">) => {
     const [currentUserLocation, setCurrentUserLocation] = useState(null);
     const [navigate, setNavigate] = useState(false);
     const { destination } = route.params;
+    console.log("BLYAAAAAA", destination)
     const onMarkerPress = (marker) => {
         setShowModalWindow(true);
         setCurrentMarker(marker);
@@ -42,7 +43,7 @@ const Map = ({navigation, route}: HomeNavigationProps<"Map">) => {
         setShowModalWindow(index);
     };
     const navigateToPlace = (index, coordinates) => {
-        setNavigate(index);
+        // setNavigate(index);
         setCurrentNavigationDestination(coordinates);
     }
 
@@ -55,12 +56,13 @@ const Map = ({navigation, route}: HomeNavigationProps<"Map">) => {
                 return;
             }
             const location = await Location.getCurrentPositionAsync({})
+            console.log('LOCAGTION!!!!', location)
             setCurrentUserLocation(location);
         })();
         if (errorMsg) {
             console.log(errorMsg);
         }
-        fetch('http://beautiful-places.ru/api/places')
+        fetch('https://beautiful-places.ru/api/places')
             .then((response) => response.json())
             .then((json) => setData(json))
             .catch((error) => console.error(error))
@@ -84,7 +86,7 @@ const Map = ({navigation, route}: HomeNavigationProps<"Map">) => {
                 }}
             >
 
-                {currentUserLocation && navigate ?
+                {currentUserLocation ?
                     <MapViewDirections
                         origin={{latitude: currentUserLocation.coords.latitude, longitude: currentUserLocation.coords.longitude}}
                         destination={destination}
