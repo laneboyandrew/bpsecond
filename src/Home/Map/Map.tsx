@@ -33,7 +33,9 @@ const Map = ({navigation, route}: HomeNavigationProps<"Map">) => {
     const [navigationDestination, setCurrentNavigationDestination] = useState(null);
     const [currentUserLocation, setCurrentUserLocation] = useState(null);
     const [navigate, setNavigate] = useState(false);
-    const { destination } = route.params;
+    if (route.params) {
+    var { destination } = route.params;
+    }
     console.log("BLYAAAAAA", destination)
     const onMarkerPress = (marker) => {
         setShowModalWindow(true);
@@ -49,14 +51,13 @@ const Map = ({navigation, route}: HomeNavigationProps<"Map">) => {
 
     useEffect(() => {
         (async () => {
-
             let {status} = await Location.requestPermissionsAsync();
             if (status !== 'granted') {
                 setErrorMsg('Permission to access location was denied');
                 return;
             }
             const location = await Location.getCurrentPositionAsync({})
-            console.log('LOCAGTION!!!!', location)
+            console.log('LOCATION!!!!', location)
             setCurrentUserLocation(location);
         })();
         if (errorMsg) {
@@ -70,7 +71,6 @@ const Map = ({navigation, route}: HomeNavigationProps<"Map">) => {
     }, []);
     return (
         <View style={{flex: 1}}>
-
             <MapView
                 mapType={satellite ? "hybrid" : "standard"}
                 style={{flex: 1}}

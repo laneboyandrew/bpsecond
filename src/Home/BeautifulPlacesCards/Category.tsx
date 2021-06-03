@@ -12,34 +12,26 @@ interface CategoryProps {
         id: string;
         color: string;
         title: string;
+        placeSelected: boolean;
     }
 }
 
 const Category = ({
                       filterDataFromChildren,
-                      category: {color: backgroundColor, title, id}
+                      buttonPressed,
+                      dataFromChildren,
+                      category: {color: backgroundColor, title, id, categorySelected}
                   }: CategoryProps) => {
-    let [selected, setSelected] = useState(false);
-    let selectedCategoriesArray = [];
+    let [selected, setSelected] = useState(true);
+    const initialArray = ['mountains', 'ponds', 'beach', 'architecture', 'forest', 'abandoned', 'caves', 'careers', 'waterfall'];
+    let [categoriesArray, setCategoriesArray] = useState(initialArray);
+    let [resultArray, setResultArray] = useState(undefined);
 
-    const buttonPress = () => {
-        if (selectedCategoriesArray.includes(id)){
-            const index = selectedCategoriesArray.indexOf(id)
-            selectedCategoriesArray.splice(index, 1)
-            console.log('deleted', selectedCategoriesArray)
-        } else {
-            selectedCategoriesArray.push(id)
-            console.log('newPushed', selectedCategoriesArray)
-        }
+    const buttonPress = async () => {
+        buttonPressed(id)
         setSelected((prev) => !prev)
-        sendDataToParent()
-        console.log('gggggggggg', selectedCategoriesArray)
-    }
-    const sendDataToParent = () => {
-        filterDataFromChildren(selectedCategoriesArray)
-        console.log('selCatArr', selectedCategoriesArray)
-    }
-    console.log('finish', selectedCategoriesArray)
+        }
+
     return (
         <BorderlessTap onPress={() => buttonPress()}>
             <Box marginLeft='m' marginTop="s" alignItems='center'>

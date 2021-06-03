@@ -25,7 +25,8 @@ import Category from "./Category";
 import Carousel from "react-native-snap-carousel";
 import ModalWindow from "../Map/ModalWindow";
 import {Image} from "react-native-expo-image-cache";
-
+import { useContext } from 'react';
+import AppContext from "../../components/AppContext";
 
 const cards = [
     {
@@ -50,10 +51,8 @@ const initialMarker = {
 const footerHeight = PixelRatio.roundToNearestPixel(Dimensions.get("window").width / 3.3)
 const step = 1/(cards.length - 1);
 const BeautifulPlacesCards = ({ navigation }: HomeNavigationProps<"BeautifulPlacesCards">) => {
-    let filterState = false;
-    let oldFilterState = false;
-    const huinya = 'huinya';
-    const [markers, setMarkers] = useState([]);
+    const myContext = useContext(AppContext);
+    const [markers, setMarkers] = useState(undefined);
     const [showModalWindow, setShowModalWindow] = useState(false);
     const [currentMarker, setCurrentMarker] = useState(initialMarker);
     const [navigationDestination, setCurrentNavigationDestination] = useState(null);
@@ -64,19 +63,39 @@ const BeautifulPlacesCards = ({ navigation }: HomeNavigationProps<"BeautifulPlac
     let [filteredData, setFilteredData] = useState(undefined);
     const [activeIndex, setActiveIndex] = useState<number>(0);
     const {width, height} = Dimensions.get("window");
-    fetch('https://beautiful-places.ru/api/places')
-        .then((response) => response.json())
-        .then((json) => setData(json))
-        .then(() =>
-            console.log('jsonData', originalData))
-        .catch((error) => console.error(error));
+    let [dataFromChildren, setDataFromChildren] = useState(['mountains', 'ponds', 'beach', 'architecture', 'forest', 'abandoned', 'caves', 'careers', 'waterfall']);
     useEffect(() => {
-        if(oldFilterState != filterState) {
-            let filtered = originalData.filter(place => place.type == filterState)
-            filterState ? setFilteredData(filtered) : setFilteredData(originalData)
-            oldFilterState = filterState
+        let index = ['mountains', 'ponds', 'beach', 'architecture', 'forest', 'abandoned', 'caves', 'careers', 'waterfall'];
+         filterDataFromChildren(index);
+    }, []);
+    const buttonPressed = (id) => {
+        if (dataFromChildren.includes(id)) {
+            const index = dataFromChildren.indexOf(id)
+            dataFromChildren.splice(index, 1)
+            console.log('deleted', dataFromChildren)
+            setDataFromChildren(dataFromChildren)
+            filterDataFromChildren(dataFromChildren)
+        } else {
+            dataFromChildren.unshift(id)
+            console.log('newPushed', dataFromChildren)
+            setDataFromChildren(dataFromChildren)
+            filterDataFromChildren(dataFromChildren)
         }
-    }, [filterState]);
+    }
+    const filterDataFromChildren = async (index) => {
+        setDataFromChildren(index);
+        console.log('dataFromChildren', dataFromChildren)
+        let response = await fetch('https://beautiful-places.ru/api/places')
+            let json = await response.json()
+        console.log('infoINX', index[0])
+        let filtered = [];
+        index.map(placeType => (
+           filtered.push(json.filter(place => place.type == placeType))
+        ));
+
+        console.log('filteredData', filtered)
+        setFilteredData(filtered)
+    };
     const sendStartProcessToParent = (value) => { // the callback. Use a better name
         onMarkerPress(value);
     };
@@ -91,11 +110,7 @@ const BeautifulPlacesCards = ({ navigation }: HomeNavigationProps<"BeautifulPlac
         setNavigate(index);
         setCurrentNavigationDestination(coordinates);
     }
-    const filterDataFromChildren = (index) => {
-        console.log('infoINX', index[0])
-        if(filterState != index[0])
-            filterState = index[0];
-    };
+
     interface ItemProps {
         title: string;
         text: string;
@@ -132,24 +147,24 @@ const BeautifulPlacesCards = ({ navigation }: HomeNavigationProps<"BeautifulPlac
             left={{ icon: 'menu', onPress: () => navigation.openDrawer() }}
             right={{ icon: 'shopping-bag', onPress: () => true }}
         />
-    <Categories filterDataFromChildren={filterDataFromChildren} data={originalData} />
+    <Categories filterDataFromChildren={filterDataFromChildren} dataFromChilder={dataFromChildren} buttonPressed={buttonPressed}/>
         </View>
             <View style={{ marginTop: '10%', height: "80%", justifyContent: "center", alignSelf: "center",  alignItems: "center" }}>
+                {filteredData ?
                <Carousel
                     layout={"default"}
                     style={{ }}
                     ref={ref}
-                    data={filteredData ? filteredData : originalData}
+                    data={filteredData}
                     sliderWidth={width}
                     itemWidth={width/1.4}
                     renderItem={renderItem}
                     onSnapToItem={(index: number) => setActiveIndex(index)}
-                />
+                /> : undefined }
             </View>
             <ModalWindow navigateToPlace={navigateToPlace} sendDataToParent={sendDataToParent} visible={showModalWindow}
                          marker={currentMarker}/>
         </LinearGradient>
-
     )}
 
 export default BeautifulPlacesCards;
