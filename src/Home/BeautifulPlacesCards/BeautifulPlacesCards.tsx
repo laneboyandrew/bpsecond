@@ -17,7 +17,7 @@ import {
     TouchableWithoutFeedback, TouchableOpacityComponent, TouchableHighlight, Button
 } from "react-native";
 import {backgroundColor} from "@shopify/restyle";
-import { LinearGradient } from 'expo-linear-gradient';
+import {LinearGradient} from 'expo-linear-gradient';
 import {StatusBar} from "expo-status-bar";
 import CustomCarousel from "../Map/CustomCarousel";
 import AppLoading from "expo-app-loading";
@@ -25,7 +25,7 @@ import Category from "./Category";
 import Carousel from "react-native-snap-carousel";
 import ModalWindow from "../Map/ModalWindow";
 import {Image} from "react-native-expo-image-cache";
-import { useContext } from 'react';
+import {useContext} from 'react';
 import AppContext from "../../components/AppContext";
 
 const cards = [
@@ -49,8 +49,8 @@ const initialMarker = {
     description: 'Вам станет доступно описание места'
 }
 const footerHeight = PixelRatio.roundToNearestPixel(Dimensions.get("window").width / 3.3)
-const step = 1/(cards.length - 1);
-const BeautifulPlacesCards = ({ navigation }: HomeNavigationProps<"BeautifulPlacesCards">) => {
+const step = 1 / (cards.length - 1);
+const BeautifulPlacesCards = ({navigation}: HomeNavigationProps<"BeautifulPlacesCards">) => {
     const myContext = useContext(AppContext);
     const [markers, setMarkers] = useState(undefined);
     const [showModalWindow, setShowModalWindow] = useState(false);
@@ -66,7 +66,7 @@ const BeautifulPlacesCards = ({ navigation }: HomeNavigationProps<"BeautifulPlac
     let [dataFromChildren, setDataFromChildren] = useState(['mountains', 'ponds', 'beach', 'architecture', 'forest', 'abandoned', 'caves', 'careers', 'waterfall']);
     useEffect(() => {
         let index = ['mountains', 'ponds', 'beach', 'architecture', 'forest', 'abandoned', 'caves', 'careers', 'waterfall'];
-         filterDataFromChildren(index);
+        filterDataFromChildren(index);
     }, []);
     const buttonPressed = (id) => {
         if (dataFromChildren.includes(id)) {
@@ -86,15 +86,13 @@ const BeautifulPlacesCards = ({ navigation }: HomeNavigationProps<"BeautifulPlac
         setDataFromChildren(index);
         console.log('dataFromChildren', dataFromChildren)
         let response = await fetch('https://beautiful-places.ru/api/places')
-            let json = await response.json()
-        console.log('infoINX', index[0])
-        let filtered = [];
+        let json = await response.json()
+        console.log('infoINX', json)
+        let allSelectedTypesArray = [];
         index.map(placeType => (
-           filtered.push(json.filter(place => place.type == placeType))
+            allSelectedTypesArray.push(...json.filter(place => place.type == placeType))
         ));
-
-        console.log('filteredData', filtered)
-        setFilteredData(filtered)
+        setFilteredData(allSelectedTypesArray)
     };
     const sendStartProcessToParent = (value) => { // the callback. Use a better name
         onMarkerPress(value);
@@ -115,56 +113,66 @@ const BeautifulPlacesCards = ({ navigation }: HomeNavigationProps<"BeautifulPlac
         title: string;
         text: string;
     }
+
     interface RenderItemProps {
         item: ItemProps;
         index: number;
     }
+
     const ref = useRef(null);
 
-    const preview = { uri: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==" };
-    const renderItem = useCallback(({ item, index }: RenderItemProps) => {
+    const preview = {uri: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="};
+    const renderItem = useCallback(({item, index}: RenderItemProps) => {
         return (
-    <TouchableWithoutFeedback onPress={() => onMarkerPress(item)}>
-        <View>
-            <Image {...{uri: item.images[0].image, preview}}
-                style={{
-                    backgroundColor: "floralwhite",
-                    borderRadius: 5,
-                    height: '80%',
-                    width: width/1.4,
-                }}
-            />
-        </View>
-    </TouchableWithoutFeedback>
-        );
+            <TouchableWithoutFeedback onPress={() => onMarkerPress(item)}>
+                <View>
+                    <Image {...{uri: item.images[0].image, preview}}
+                           style={{
+                               backgroundColor: "floralwhite",
+                               borderRadius: 5,
+                               height: '80%',
+                               width: width / 1.4,
+                           }}
+                    />
+
+                </View>
+            </TouchableWithoutFeedback>
+        )
     }, []);
-    //console.log('startData' , originalData);
     return (
         <LinearGradient colors={['#051345', '#fa3c01']}>
-        <View>
-        <Header
-            title="Карточки мест"
-            left={{ icon: 'menu', onPress: () => navigation.openDrawer() }}
-            right={{ icon: 'shopping-bag', onPress: () => true }}
-        />
-    <Categories filterDataFromChildren={filterDataFromChildren} dataFromChilder={dataFromChildren} buttonPressed={buttonPressed}/>
-        </View>
-            <View style={{ marginTop: '10%', height: "80%", justifyContent: "center", alignSelf: "center",  alignItems: "center" }}>
+            <View>
+                <Header
+                    title="Карточки мест"
+                    left={{icon: 'menu', onPress: () => navigation.openDrawer()}}
+                    right={{icon: 'shopping-bag', onPress: () => true}}
+                />
+                <Categories filterDataFromChildren={filterDataFromChildren} dataFromChilder={dataFromChildren}
+                            buttonPressed={buttonPressed}/>
+            </View>
+            <View style={{
+                marginTop: '10%',
+                height: "80%",
+                justifyContent: "center",
+                alignSelf: "center",
+                alignItems: "center"
+            }}>
                 {filteredData ?
-               <Carousel
-                    layout={"default"}
-                    style={{ }}
-                    ref={ref}
-                    data={filteredData}
-                    sliderWidth={width}
-                    itemWidth={width/1.4}
-                    renderItem={renderItem}
-                    onSnapToItem={(index: number) => setActiveIndex(index)}
-                /> : undefined }
+                    <Carousel
+                        layout={"default"}
+                        style={{}}
+                        ref={ref}
+                        data={filteredData}
+                        sliderWidth={width}
+                        itemWidth={width / 1.4}
+                        renderItem={renderItem}
+                        onSnapToItem={(index: number) => setActiveIndex(index)}
+                    /> : undefined}
             </View>
             <ModalWindow navigateToPlace={navigateToPlace} sendDataToParent={sendDataToParent} visible={showModalWindow}
                          marker={currentMarker}/>
         </LinearGradient>
-    )}
+    )
+}
 
 export default BeautifulPlacesCards;
