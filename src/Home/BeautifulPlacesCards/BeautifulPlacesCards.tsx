@@ -27,6 +27,7 @@ import ModalWindow from "../Map/ModalWindow";
 import {Image} from "react-native-expo-image-cache";
 import {useContext} from 'react';
 import AppContext from "../../components/AppContext";
+import {useIsFocused} from "@react-navigation/native";
 
 const cards = [
     {
@@ -51,6 +52,7 @@ const initialMarker = {
 const footerHeight = PixelRatio.roundToNearestPixel(Dimensions.get("window").width / 3.3)
 const step = 1 / (cards.length - 1);
 const BeautifulPlacesCards = ({navigation}: HomeNavigationProps<"BeautifulPlacesCards">) => {
+    const isFocused = useIsFocused();
     const myContext = useContext(AppContext);
     const [markers, setMarkers] = useState(undefined);
     const [showModalWindow, setShowModalWindow] = useState(false);
@@ -108,7 +110,7 @@ const BeautifulPlacesCards = ({navigation}: HomeNavigationProps<"BeautifulPlaces
         setNavigate(index);
         setCurrentNavigationDestination(coordinates);
     }
-
+    
     interface ItemProps {
         title: string;
         text: string;
@@ -145,7 +147,7 @@ const BeautifulPlacesCards = ({navigation}: HomeNavigationProps<"BeautifulPlaces
                 <Header
                     title="Карточки мест"
                     left={{icon: 'menu', onPress: () => navigation.openDrawer()}}
-                    right={{icon: 'shopping-bag', onPress: () => true}}
+                    dark
                 />
                 <Categories filterDataFromChildren={filterDataFromChildren} dataFromChilder={dataFromChildren}
                             buttonPressed={buttonPressed}/>
@@ -169,6 +171,8 @@ const BeautifulPlacesCards = ({navigation}: HomeNavigationProps<"BeautifulPlaces
                         onSnapToItem={(index: number) => setActiveIndex(index)}
                     /> : undefined}
             </View>
+            {isFocused ? <StatusBar style="light" /> : undefined}
+
             <ModalWindow navigateToPlace={navigateToPlace} sendDataToParent={sendDataToParent} visible={showModalWindow}
                          marker={currentMarker}/>
         </LinearGradient>

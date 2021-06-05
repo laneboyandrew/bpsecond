@@ -68,7 +68,7 @@ const Category = ({
                         }
                     </View>
                 </Box>
-                <Text textAlign="center" marginTop="s">
+                <Text style={{color: "white"}} textAlign="center" marginTop="s">
                     {title}
                 </Text>
             </Box>

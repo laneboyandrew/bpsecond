@@ -71,6 +71,8 @@ const Map = ({navigation, route}: HomeNavigationProps<"Map">) => {
     }, []);
     return (
         <View style={{flex: 1}}>
+            {satellite ? <StatusBar style="light" /> : <StatusBar style="black" /> }
+
             <MapView
                 mapType={satellite ? "hybrid" : "standard"}
                 style={{flex: 1}}
@@ -149,7 +151,6 @@ const Map = ({navigation, route}: HomeNavigationProps<"Map">) => {
             />
             <ModalWindow navigateToPlace={navigateToPlace} sendDataToParent={sendDataToParent} visible={showModalWindow}
                          marker={currentMarker}/>
-            {satellite ? <StatusBar style="light" /> : <StatusBar style="black" /> }
             <IconButton
                 style={{
                     position: 'absolute',

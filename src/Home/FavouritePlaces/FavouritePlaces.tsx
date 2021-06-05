@@ -11,6 +11,7 @@ import {array} from "yup";
 import {StatusBar} from "expo-status-bar";
 import { useIsFocused } from "@react-navigation/native";
 import ModalWindow from "../Map/ModalWindow";
+import {LinearGradient} from "expo-linear-gradient";
 
 const {width: wWidth, height} = Dimensions.get('window')
 const initialMarker = {
@@ -75,7 +76,7 @@ const FavouritePlaces = ({navigation}: HomeNavigationProps<"FavouritePlaces">) =
     const [footerHeight, setFooterHeight] = useState(0);
     return (
         <Box flex={1} backgroundColor="background">
-            <StatusBar style="black" />
+            {isFocused ? <StatusBar style="dark" /> : undefined}
             <Header
                 title="Избранные места"
                 left={{icon: 'menu', onPress: () => navigation.openDrawer()}}
