@@ -74,6 +74,7 @@ const Map = ({navigation, route}: HomeNavigationProps<"Map">) => {
             {satellite ? <StatusBar style="light" /> : <StatusBar style="black" /> }
 
             <MapView
+                // clusterColor='#fa3c01'
                 mapType={satellite ? "hybrid" : "standard"}
                 style={{flex: 1}}
                 showsUserLocation={true}
@@ -95,7 +96,7 @@ const Map = ({navigation, route}: HomeNavigationProps<"Map">) => {
                         apikey={GOOGLE_MAPS_APIKEY}
                         language={'ru'}
                         strokeWidth={3}
-                        strokeColor="hotpink"
+                        strokeColor="#fa3c01"
                         precision={"high"}
                     /> : undefined}
 
