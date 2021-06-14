@@ -44,7 +44,7 @@ export default function App() {
                 <LoadAssets{...{assets}}>
                     <SafeAreaProvider>
                         <AppStack.Navigator headerMode="none">
-                            <AppStack.Screen name="Authentication" component={AuthenticationNavigator}/>
+                            {/*<AppStack.Screen name="Authentication" component={AuthenticationNavigator}/>*/}
                             <AppStack.Screen name="Home" component={HomeNavigator}/>
                         </AppStack.Navigator>
                     </SafeAreaProvider>

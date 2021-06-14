@@ -74,7 +74,7 @@ const Map = ({navigation, route}: HomeNavigationProps<"Map">) => {
             {satellite ? <StatusBar style="light" /> : <StatusBar style="black" /> }
 
             <MapView
-                // clusterColor='#fa3c01'
+                // clusterColor='#FFE8E9'
                 mapType={satellite ? "hybrid" : "standard"}
                 style={{flex: 1}}
                 showsUserLocation={true}

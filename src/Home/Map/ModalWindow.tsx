@@ -124,9 +124,7 @@ const ModalWindow = ({navigateToPlace, sendDataToParent, visible, marker }: Home
                         </TouchableOpacity>
                     </View>
             </ScrollView>
-
             </View>
-
         </Modal>
     );
 }
